@@ -11,7 +11,10 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2022_05_22_162722) do
-  create_table "boards", charset: "utf8mb4", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "boards", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "player_1_id"
@@ -23,7 +26,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_22_162722) do
     t.index ["player_2_id"], name: "index_boards_on_player_2_id"
   end
 
-  create_table "players", charset: "utf8mb4", force: :cascade do |t|
+  create_table "players", force: :cascade do |t|
     t.string "name"
     t.string "lastname"
     t.string "password"
