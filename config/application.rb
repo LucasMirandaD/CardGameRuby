@@ -6,10 +6,11 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module TatetiRuby
+module CardgameRuby
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
+    config.api_only = true
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -18,5 +19,6 @@ module TatetiRuby
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    ActiveRecord::Base.time_zone_aware_types = [:datetime]
   end
 end

@@ -4,29 +4,25 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-  resources :players , param: :nickname , except:[:update, :destroy, :new, :edit] do
+  resources :players, param: :nickname, only: %i[update destroy new edit] do
     member do
       post :login # /players/:nickname/login
     end
   end
-    
-    resources :boards , except:[:update, :destroy, :new, :edit] do
+
+  resources :boards, only: %i[update destroy new edit] do
   end
-=begin
-  root "tateti#index"
 
-  get"tateti/players", to: "players#index"
-  get"tateti/players/:id", to: "players#show"
-  post"tateti/players", to: "players#create"
-  post "players/:nickname/login" to: players#login
-  patch"tateti/players/:id", to: "players#update"
-  delete"tateti/players/:id", to: "players#destroy"
-  #no voy a definir el put
-
-  get"/boards", to: "boards#index"
-  get"/boards/:id", to: "boards#show"
-  post"/boards", to: "boards#create" 
-  patch"/boards/:id", to: "boards#update"
-  delete"/boards/:id", to: "boards#destroy" 
-=end 
+  # ROUTES
+  # Prefix Verb  URI    Pattern                                                                                       Controller#Action
+  # login_player POST   /players/:nickname/login(.:format)                                                                players#login
+  #   new_player GET    /players/new(.:format)                                                                            players#new
+  #  edit_player GET    /players/:nickname/edit(.:format)                                                                 players#edit
+  #       player PATCH  /players/:nickname(.:format)                                                                      players#update
+  #              PUT    /players/:nickname(.:format)                                                                      players#update
+  #              DELETE /players/:nickname(.:format)                                                                      players#destroy
+  #    new_board GET    /boards/new(.:format)                                                                             boards#new
+  #   edit_board GET    /boards/:id/edit(.:format)                                                                        boards#edit
+  #        board PATCH  /boards/:id(.:format)                                                                             boards#update
+  #              PUT    /boards/:id(.:format)                                                                             boards#update
 end
