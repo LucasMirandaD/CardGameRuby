@@ -1,0 +1,599 @@
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (12.1ms)[0m  [1m[35mDROP DATABASE IF EXISTS "card_game_backend_development"[0m
+  [1m[35m (11.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS "card_game_backend_test"[0m
+  [1m[35m (74.9ms)[0m  [1m[35mCREATE DATABASE "card_game_backend_development" ENCODING = 'unicode'[0m
+  [1m[35m (23.3ms)[0m  [1m[35mCREATE DATABASE "card_game_backend_test" ENCODING = 'unicode'[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3379173675217033995)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreatePlayers (20220519232111)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE "players" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "name" character varying, "lastname" character varying, "password" character varying, "nickname" character varying, "token" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20220519232111"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateBoards (20220522162722)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE TABLE "boards" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "player_1_id" bigint, "player_2_id" bigint, "board_name" character varying, "turn" integer DEFAULT 0, "winner" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE INDEX "index_boards_on_player_1_id" ON "boards" ("player_1_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE INDEX "index_boards_on_player_2_id" ON "boards" ("player_2_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20220522162722"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-10-13 15:22:16.875876"], ["updated_at", "2023-10-13 15:22:16.875876"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(3379173675217033995)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (12.0ms)[0m  [1m[35mDROP DATABASE IF EXISTS "card_game_backend_development"[0m
+  [1m[35m (12.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS "card_game_backend_test"[0m
+  [1m[35m (20.7ms)[0m  [1m[35mCREATE DATABASE "card_game_backend_development" ENCODING = 'unicode'[0m
+  [1m[35m (20.2ms)[0m  [1m[35mCREATE DATABASE "card_game_backend_test" ENCODING = 'unicode'[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (2.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3379173675217033995)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreatePlayers (20220519232111)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE TABLE "players" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "name" character varying, "lastname" character varying, "password" character varying, "nickname" character varying, "email" character varying, "token" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20220519232111"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateBoards (20220522162722)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE TABLE "boards" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "player_1_id" bigint, "player_2_id" bigint, "board_name" character varying, "turn" integer DEFAULT 0, "winner" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE INDEX "index_boards_on_player_1_id" ON "boards" ("player_1_id")[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE INDEX "index_boards_on_player_2_id" ON "boards" ("player_2_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20220522162722"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-10-13 15:33:08.643166"], ["updated_at", "2023-10-13 15:33:08.643166"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(3379173675217033995)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/players" for ::1 at 2023-10-13 12:33:28 -0300
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PlayersController#create as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]", "name"=>"lucas", "last_name"=>"miranda", "nickname"=>"enkinaurio"}}
+[31mUnpermitted parameter: :last_name. Context: { controller: PlayersController, action: create, request: #<ActionDispatch::Request:0x00007fcf656d8d50>, params: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]", "name"=>"lucas", "last_name"=>"miranda", "nickname"=>"enkinaurio"}, "controller"=>"players", "action"=>"create"} }[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/players_controller.rb:31:in `create'
+  [1m[36mPlayer Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."nickname" = $1 LIMIT $2[0m  [["nickname", "enkinaurio"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:31:in `create'
+  [1m[36mPlayer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."email" = $1 LIMIT $2[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:31:in `create'
+  [1m[36mPlayer Create (0.3ms)[0m  [1m[32mINSERT INTO "players" ("name", "lastname", "password", "nickname", "email", "token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["name", "lucas"], ["lastname", nil], ["password", "123456#"], ["nickname", "enkinaurio"], ["email", "lucasdavidmiranda8@hotmail.com"], ["token", "47e44e46-5b25-4c63-a28b-e917bec4b00b"], ["created_at", "2023-10-13 15:33:28.999830"], ["updated_at", "2023-10-13 15:33:28.999830"]]
+  ↳ app/controllers/players_controller.rb:31:in `create'
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/players_controller.rb:31:in `create'
+Completed 200 OK in 13ms (Views: 0.2ms | ActiveRecord: 4.3ms | Allocations: 13111)
+
+
+Started POST "/players" for ::1 at 2023-10-13 12:34:49 -0300
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PlayersController#create as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]", "name"=>"lucas", "lastname"=>"miranda", "nickname"=>"enkinaurio"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/players_controller.rb:31:in `create'
+  [1m[36mPlayer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."nickname" = $1 LIMIT $2[0m  [["nickname", "enkinaurio"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:31:in `create'
+  [1m[36mPlayer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."email" = $1 LIMIT $2[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:31:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/players_controller.rb:31:in `create'
+Completed 422 Unprocessable Entity in 6ms (Views: 0.1ms | ActiveRecord: 2.4ms | Allocations: 6002)
+
+
+Started POST "/players" for ::1 at 2023-10-13 12:35:58 -0300
+Processing by PlayersController#create as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]", "name"=>"lucas", "lastname"=>"miranda", "nickname"=>"enkinaurio"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/players_controller.rb:31:in `create'
+  [1m[36mPlayer Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."nickname" = $1 LIMIT $2[0m  [["nickname", "enkinaurio"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:31:in `create'
+  [1m[36mPlayer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."email" = $1 LIMIT $2[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:31:in `create'
+  [1m[36mPlayer Create (0.2ms)[0m  [1m[32mINSERT INTO "players" ("name", "lastname", "password", "nickname", "email", "token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["name", "lucas"], ["lastname", "miranda"], ["password", "123456#"], ["nickname", "enkinaurio"], ["email", "lucasdavidmiranda8@hotmail.com"], ["token", "c610e949-87a7-4e9c-a8e4-37ce2c8b1dcb"], ["created_at", "2023-10-13 15:35:58.809416"], ["updated_at", "2023-10-13 15:35:58.809416"]]
+  ↳ app/controllers/players_controller.rb:31:in `create'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/players_controller.rb:31:in `create'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 1.3ms | Allocations: 3921)
+
+
+Started POST "/players/login" for ::1 at 2023-10-13 12:42:49 -0300
+  
+ActionController::RoutingError (No route matches [POST] "/players/login"):
+  
+Started POST "/players/login" for ::1 at 2023-10-13 12:44:14 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."email" IS NULL AND "players"."password" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:21:in `login'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."nickname" IS NULL AND "players"."password" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:22:in `login'
+Completed 500 Internal Server Error in 11ms (ActiveRecord: 2.9ms | Allocations: 5085)
+
+
+  
+NoMethodError (undefined method `errors' for nil:NilClass):
+  
+app/controllers/players_controller.rb:27:in `login'
+Started POST "/players/login" for ::1 at 2023-10-13 12:47:36 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."email" = $1 AND "players"."password" = $2 LIMIT $3[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["password", "123456#"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:21:in `login'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 2.4ms | Allocations: 3668)
+
+
+Started POST "/players/login" for ::1 at 2023-10-13 12:51:16 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."email" = $1 AND "players"."password" = $2 LIMIT $3[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["password", "123456#"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:21:in `login'
+Completed 500 Internal Server Error in 4ms (ActiveRecord: 1.5ms | Allocations: 3357)
+
+
+  
+NameError (undefined local variable or method `token' for #<PlayersController:0x0000000001ba80>):
+  
+app/controllers/players_controller.rb:25:in `login'
+Started POST "/players/login" for ::1 at 2023-10-13 12:51:23 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."email" = $1 AND "players"."password" = $2 LIMIT $3[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["password", "123456#"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:21:in `login'
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.2ms | Allocations: 632)
+
+
+  
+NameError (undefined local variable or method `token' for #<PlayersController:0x0000000001bb20>):
+  
+app/controllers/players_controller.rb:25:in `login'
+Started POST "/players/login" for ::1 at 2023-10-13 12:52:17 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."email" = $1 AND "players"."password" = $2 LIMIT $3[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["password", "123456#"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:21:in `login'
+Completed 500 Internal Server Error in 8ms (ActiveRecord: 1.6ms | Allocations: 6515)
+
+
+  
+ActionView::MissingTemplate (Missing template players/login, application/login with {:locale=>[:en], :formats=>[:html, :text, :js, :css, :ics, :csv, :vcf, :vtt, :png, :jpeg, :gif, :bmp, :tiff, :svg, :mpeg, :mp3, :ogg, :m4a, :webm, :mp4, :otf, :ttf, :woff, :woff2, :xml, :rss, :atom, :yaml, :multipart_form, :url_encoded_form, :json, :pdf, :zip, :gzip], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby]}.
+
+Searched in:
+  * "/home/lucasm/JuegoCartas/CardGameRuby/app/views"
+  * "/home/lucasm/.rvm/gems/ruby-3.2.0/gems/actiontext-7.0.8/app/views"
+  * "/home/lucasm/.rvm/gems/ruby-3.2.0/gems/actionmailbox-7.0.8/app/views"
+):
+  
+app/controllers/players_controller.rb:25:in `login'
+Started POST "/players/login" for ::1 at 2023-10-13 12:53:03 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."email" = $1 AND "players"."password" = $2 LIMIT $3[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["password", "123456#"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:21:in `login'
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 2.2ms | Allocations: 3409)
+
+
+  
+NameError (undefined local variable or method `player' for #<PlayersController:0x00000000023258>):
+  
+app/controllers/players_controller.rb:24:in `login'
+Started POST "/players/login" for ::1 at 2023-10-13 12:53:21 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."email" = $1 AND "players"."password" = $2 LIMIT $3[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["password", "123456#"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:21:in `login'
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 2.1ms | Allocations: 3413)
+
+
+  
+NameError (undefined local variable or method `player' for #<PlayersController:0x00000000026e58>):
+  
+app/controllers/players_controller.rb:24:in `login'
+Started POST "/players/login" for ::1 at 2023-10-13 12:53:32 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."email" = $1 AND "players"."password" = $2 LIMIT $3[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["password", "123456#"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:21:in `login'
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 1.5ms | Allocations: 3781)
+
+
+  
+ActionView::MissingTemplate (Missing template players/login, application/login with {:locale=>[:en], :formats=>[:html, :text, :js, :css, :ics, :csv, :vcf, :vtt, :png, :jpeg, :gif, :bmp, :tiff, :svg, :mpeg, :mp3, :ogg, :m4a, :webm, :mp4, :otf, :ttf, :woff, :woff2, :xml, :rss, :atom, :yaml, :multipart_form, :url_encoded_form, :json, :pdf, :zip, :gzip], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby]}.
+
+Searched in:
+  * "/home/lucasm/JuegoCartas/CardGameRuby/app/views"
+  * "/home/lucasm/.rvm/gems/ruby-3.2.0/gems/actiontext-7.0.8/app/views"
+  * "/home/lucasm/.rvm/gems/ruby-3.2.0/gems/actionmailbox-7.0.8/app/views"
+):
+  
+app/controllers/players_controller.rb:25:in `login'
+Started POST "/players/login" for ::1 at 2023-10-13 12:55:02 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."email" = $1 AND "players"."password" = $2 LIMIT $3[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["password", "123456#"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:21:in `login'
+Completed 500 Internal Server Error in 4ms (ActiveRecord: 1.6ms | Allocations: 3780)
+
+
+  
+ActionView::MissingTemplate (Missing template players/login, application/login with {:locale=>[:en], :formats=>[:html, :text, :js, :css, :ics, :csv, :vcf, :vtt, :png, :jpeg, :gif, :bmp, :tiff, :svg, :mpeg, :mp3, :ogg, :m4a, :webm, :mp4, :otf, :ttf, :woff, :woff2, :xml, :rss, :atom, :yaml, :multipart_form, :url_encoded_form, :json, :pdf, :zip, :gzip], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby]}.
+
+Searched in:
+  * "/home/lucasm/JuegoCartas/CardGameRuby/app/views"
+  * "/home/lucasm/.rvm/gems/ruby-3.2.0/gems/actiontext-7.0.8/app/views"
+  * "/home/lucasm/.rvm/gems/ruby-3.2.0/gems/actionmailbox-7.0.8/app/views"
+):
+  
+app/controllers/players_controller.rb:26:in `login'
+Started POST "/players/login" for ::1 at 2023-10-13 12:56:00 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."email" = $1 AND "players"."password" = $2 LIMIT $3[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["password", "123456#"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:21:in `login'
+Completed 500 Internal Server Error in 7ms (ActiveRecord: 2.4ms | Allocations: 3784)
+
+
+  
+ActionView::MissingTemplate (Missing template players/login, application/login with {:locale=>[:en], :formats=>[:html, :text, :js, :css, :ics, :csv, :vcf, :vtt, :png, :jpeg, :gif, :bmp, :tiff, :svg, :mpeg, :mp3, :ogg, :m4a, :webm, :mp4, :otf, :ttf, :woff, :woff2, :xml, :rss, :atom, :yaml, :multipart_form, :url_encoded_form, :json, :pdf, :zip, :gzip], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby]}.
+
+Searched in:
+  * "/home/lucasm/JuegoCartas/CardGameRuby/app/views"
+  * "/home/lucasm/.rvm/gems/ruby-3.2.0/gems/actiontext-7.0.8/app/views"
+  * "/home/lucasm/.rvm/gems/ruby-3.2.0/gems/actionmailbox-7.0.8/app/views"
+):
+  
+app/controllers/players_controller.rb:27:in `login'
+Started POST "/players/login" for ::1 at 2023-10-13 12:56:33 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."email" = $1 AND "players"."password" = $2 LIMIT $3[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["password", "123456#"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:21:in `login'
+Completed 500 Internal Server Error in 4ms (ActiveRecord: 1.6ms | Allocations: 3783)
+
+
+  
+ActionView::MissingTemplate (Missing template players/login, application/login with {:locale=>[:en], :formats=>[:html, :text, :js, :css, :ics, :csv, :vcf, :vtt, :png, :jpeg, :gif, :bmp, :tiff, :svg, :mpeg, :mp3, :ogg, :m4a, :webm, :mp4, :otf, :ttf, :woff, :woff2, :xml, :rss, :atom, :yaml, :multipart_form, :url_encoded_form, :json, :pdf, :zip, :gzip], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby]}.
+
+Searched in:
+  * "/home/lucasm/JuegoCartas/CardGameRuby/app/views"
+  * "/home/lucasm/.rvm/gems/ruby-3.2.0/gems/actiontext-7.0.8/app/views"
+  * "/home/lucasm/.rvm/gems/ruby-3.2.0/gems/actionmailbox-7.0.8/app/views"
+):
+  
+app/controllers/players_controller.rb:27:in `login'
+Started POST "/players/login" for ::1 at 2023-10-13 12:56:48 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."email" = $1 AND "players"."password" = $2 LIMIT $3[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["password", "123456#"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:21:in `login'
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 2.1ms | Allocations: 3783)
+
+
+  
+ActionView::MissingTemplate (Missing template players/login, application/login with {:locale=>[:en], :formats=>[:html, :text, :js, :css, :ics, :csv, :vcf, :vtt, :png, :jpeg, :gif, :bmp, :tiff, :svg, :mpeg, :mp3, :ogg, :m4a, :webm, :mp4, :otf, :ttf, :woff, :woff2, :xml, :rss, :atom, :yaml, :multipart_form, :url_encoded_form, :json, :pdf, :zip, :gzip], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby]}.
+
+Searched in:
+  * "/home/lucasm/JuegoCartas/CardGameRuby/app/views"
+  * "/home/lucasm/.rvm/gems/ruby-3.2.0/gems/actiontext-7.0.8/app/views"
+  * "/home/lucasm/.rvm/gems/ruby-3.2.0/gems/actionmailbox-7.0.8/app/views"
+):
+  
+app/controllers/players_controller.rb:27:in `login'
+Started POST "/players/login" for ::1 at 2023-10-13 12:56:59 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."email" = $1 AND "players"."password" = $2 LIMIT $3[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["password", "123456#"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:21:in `login'
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 1.5ms | Allocations: 3783)
+
+
+  
+ActionView::MissingTemplate (Missing template players/login, application/login with {:locale=>[:en], :formats=>[:html, :text, :js, :css, :ics, :csv, :vcf, :vtt, :png, :jpeg, :gif, :bmp, :tiff, :svg, :mpeg, :mp3, :ogg, :m4a, :webm, :mp4, :otf, :ttf, :woff, :woff2, :xml, :rss, :atom, :yaml, :multipart_form, :url_encoded_form, :json, :pdf, :zip, :gzip], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby]}.
+
+Searched in:
+  * "/home/lucasm/JuegoCartas/CardGameRuby/app/views"
+  * "/home/lucasm/.rvm/gems/ruby-3.2.0/gems/actiontext-7.0.8/app/views"
+  * "/home/lucasm/.rvm/gems/ruby-3.2.0/gems/actionmailbox-7.0.8/app/views"
+):
+  
+app/controllers/players_controller.rb:27:in `login'
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (5007.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS "card_game_backend_development"[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (14.4ms)[0m  [1m[35mDROP DATABASE IF EXISTS "card_game_backend_development"[0m
+  [1m[35m (14.0ms)[0m  [1m[35mDROP DATABASE IF EXISTS "card_game_backend_test"[0m
+  [1m[35m (21.0ms)[0m  [1m[35mCREATE DATABASE "card_game_backend_development" ENCODING = 'unicode'[0m
+  [1m[35m (19.8ms)[0m  [1m[35mCREATE DATABASE "card_game_backend_test" ENCODING = 'unicode'[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3379173675217033995)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreatePlayers (20220519232111)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE "players" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "name" character varying, "lastname" character varying, "password" character varying, "nickname" character varying, "email" character varying, "token" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20220519232111"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateBoards (20220522162722)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.7ms)[0m  [1m[35mCREATE TABLE "boards" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "player_1_id" bigint, "player_2_id" bigint, "board_name" character varying, "turn" integer DEFAULT 0, "winner" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE INDEX "index_boards_on_player_1_id" ON "boards" ("player_1_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE INDEX "index_boards_on_player_2_id" ON "boards" ("player_2_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20220522162722"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-10-13 15:58:02.449444"], ["updated_at", "2023-10-13 15:58:02.449444"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(3379173675217033995)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/players" for ::1 at 2023-10-13 12:58:38 -0300
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PlayersController#create as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]", "name"=>"lucas", "lastname"=>"miranda", "nickname"=>"enkinaurio"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/players_controller.rb:35:in `create'
+  [1m[36mPlayer Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."nickname" = $1 LIMIT $2[0m  [["nickname", "enkinaurio"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:35:in `create'
+  [1m[36mPlayer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."email" = $1 LIMIT $2[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:35:in `create'
+  [1m[36mPlayer Create (0.2ms)[0m  [1m[32mINSERT INTO "players" ("name", "lastname", "password", "nickname", "email", "token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["name", "lucas"], ["lastname", "miranda"], ["password", "123456#"], ["nickname", "enkinaurio"], ["email", "lucasdavidmiranda8@hotmail.com"], ["token", "4ae11e6c-97c8-4b16-9203-9e7fc62648b2"], ["created_at", "2023-10-13 15:58:38.709249"], ["updated_at", "2023-10-13 15:58:38.709249"]]
+  ↳ app/controllers/players_controller.rb:35:in `create'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/players_controller.rb:35:in `create'
+Completed 200 OK in 11ms (Views: 0.3ms | ActiveRecord: 3.0ms | Allocations: 12373)
+
+
+Started POST "/players/login" for ::1 at 2023-10-13 12:58:45 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."email" = $1 AND "players"."password" = $2 LIMIT $3[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["password", "123456#"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:21:in `login'
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 0.3ms | Allocations: 3447)
+
+
+  
+ActionView::MissingTemplate (Missing template players/login, application/login with {:locale=>[:en], :formats=>[:html, :text, :js, :css, :ics, :csv, :vcf, :vtt, :png, :jpeg, :gif, :bmp, :tiff, :svg, :mpeg, :mp3, :ogg, :m4a, :webm, :mp4, :otf, :ttf, :woff, :woff2, :xml, :rss, :atom, :yaml, :multipart_form, :url_encoded_form, :json, :pdf, :zip, :gzip], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby]}.
+
+Searched in:
+  * "/home/lucasm/JuegoCartas/CardGameRuby/app/views"
+  * "/home/lucasm/.rvm/gems/ruby-3.2.0/gems/actiontext-7.0.8/app/views"
+  * "/home/lucasm/.rvm/gems/ruby-3.2.0/gems/actionmailbox-7.0.8/app/views"
+):
+  
+app/controllers/players_controller.rb:26:in `login'
+Started POST "/players/login" for ::1 at 2023-10-13 13:01:09 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."email" = $1 AND "players"."password" = $2 LIMIT $3[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["password", "123456#"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:21:in `login'
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 2.1ms | Allocations: 3804)
+
+
+  
+ActionView::MissingTemplate (Missing template players/login, application/login with {:locale=>[:en], :formats=>[:html, :text, :js, :css, :ics, :csv, :vcf, :vtt, :png, :jpeg, :gif, :bmp, :tiff, :svg, :mpeg, :mp3, :ogg, :m4a, :webm, :mp4, :otf, :ttf, :woff, :woff2, :xml, :rss, :atom, :yaml, :multipart_form, :url_encoded_form, :json, :pdf, :zip, :gzip], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby]}.
+
+Searched in:
+  * "/home/lucasm/JuegoCartas/CardGameRuby/app/views"
+  * "/home/lucasm/.rvm/gems/ruby-3.2.0/gems/actiontext-7.0.8/app/views"
+  * "/home/lucasm/.rvm/gems/ruby-3.2.0/gems/actionmailbox-7.0.8/app/views"
+):
+  
+app/controllers/players_controller.rb:27:in `login'
+Started POST "/players/login" for ::1 at 2023-10-13 13:01:39 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."email" = $1 AND "players"."password" = $2 LIMIT $3[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["password", "123456#"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:21:in `login'
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 1.8ms | Allocations: 3423)
+
+
+Started POST "/players/login" for ::1 at 2023-10-13 13:37:57 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+Completed 500 Internal Server Error in 0ms (ActiveRecord: 0.0ms | Allocations: 163)
+
+
+  
+NameError (uninitialized constant PlayersController::User):
+  
+app/controllers/players_controller.rb:23:in `login'
+Started POST "/players/login" for ::1 at 2023-10-13 13:39:38 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+Completed 500 Internal Server Error in 0ms (ActiveRecord: 0.0ms | Allocations: 157)
+
+
+  
+NameError (uninitialized constant PlayersController::User):
+  
+app/controllers/players_controller.rb:23:in `login'
+Started POST "/players/login" for ::1 at 2023-10-13 13:39:47 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+Completed 500 Internal Server Error in 0ms (ActiveRecord: 0.0ms | Allocations: 157)
+
+
+  
+NameError (uninitialized constant PlayersController::User):
+  
+app/controllers/players_controller.rb:23:in `login'
+Started POST "/players/login" for ::1 at 2023-10-13 13:40:12 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.3ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE ((email = 'lucasdavidmiranda8@hotmail.com' OR nickname = NULL) AND password = '123456#') LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:23:in `login'
+Completed 200 OK in 11ms (Views: 0.1ms | ActiveRecord: 2.8ms | Allocations: 6199)
+
+
+Started POST "/players/login" for ::1 at 2023-10-13 13:42:37 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE ((email = 'lucasdavidmiranda8@hotmail.com' OR nickname = NULL) AND password = '123456#') LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:21:in `login'
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 2.5ms | Allocations: 3411)
+
+
+Started POST "/players/login" for ::1 at 2023-10-13 13:42:53 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.3ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE ((email = 'lucasdavidmiranda8@hotmail.com' OR nickname = NULL) AND password = '123456#') LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:21:in `login'
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 2.2ms | Allocations: 3397)
+
+
+Started PUT "/players/c94a6e5a-2ec6-409f-8993-11a5d070890c" for ::1 at 2023-10-13 13:50:24 -0300
+  
+ActionController::RoutingError (No route matches [PUT] "/players/c94a6e5a-2ec6-409f-8993-11a5d070890c"):
+  
+Started PUT "/players/c94a6e5a-2ec6-409f-8993-11a5d070890c" for ::1 at 2023-10-13 13:55:10 -0300
+Processing by PlayersController#update as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]", "name"=>"lucas", "lastname"=>"miranda", "nickname"=>"enkinaurio"}, "id"=>"c94a6e5a-2ec6-409f-8993-11a5d070890c"}
+  [1m[36mPlayer Load (0.4ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "4ae11e6c-97c8-4b16-9203-9e7fc62648b2"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "c94a6e5a-2ec6-409f-8993-11a5d070890c"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:45:in `update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/players_controller.rb:47:in `update'
+  [1m[36mPlayer Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."nickname" = $1 AND "players"."id" != $2 LIMIT $3[0m  [["nickname", "enkinaurio"], ["id", "c94a6e5a-2ec6-409f-8993-11a5d070890c"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:47:in `update'
+  [1m[36mPlayer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."email" = $1 AND "players"."id" != $2 LIMIT $3[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["id", "c94a6e5a-2ec6-409f-8993-11a5d070890c"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:47:in `update'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/players_controller.rb:47:in `update'
+Completed 200 OK in 27ms (Views: 0.2ms | ActiveRecord: 5.3ms | Allocations: 10186)
+
+
+Started DELETE "/players/c94a6e5a-2ec6-409f-8993-11a5d070890c" for ::1 at 2023-10-13 14:01:08 -0300
+Processing by PlayersController#destroy as */*
+  Parameters: {"id"=>"c94a6e5a-2ec6-409f-8993-11a5d070890c"}
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "4ae11e6c-97c8-4b16-9203-9e7fc62648b2"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "c94a6e5a-2ec6-409f-8993-11a5d070890c"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:55:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/players_controller.rb:56:in `destroy'
+  [1m[36mPlayer Destroy (0.2ms)[0m  [1m[31mDELETE FROM "players" WHERE "players"."id" = $1[0m  [["id", "c94a6e5a-2ec6-409f-8993-11a5d070890c"]]
+  ↳ app/controllers/players_controller.rb:56:in `destroy'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/players_controller.rb:56:in `destroy'
+Completed 204 No Content in 19ms (ActiveRecord: 3.7ms | Allocations: 9116)
+
+
+Started POST "/players" for ::1 at 2023-10-13 14:01:13 -0300
+Processing by PlayersController#create as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]", "name"=>"lucas", "lastname"=>"miranda", "nickname"=>"enkinaurio"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/players_controller.rb:37:in `create'
+  [1m[36mPlayer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."nickname" = $1 LIMIT $2[0m  [["nickname", "enkinaurio"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:37:in `create'
+  [1m[36mPlayer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."email" = $1 LIMIT $2[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:37:in `create'
+  [1m[36mPlayer Create (0.3ms)[0m  [1m[32mINSERT INTO "players" ("name", "lastname", "password", "nickname", "email", "token", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["name", "lucas"], ["lastname", "miranda"], ["password", "123456#"], ["nickname", "enkinaurio"], ["email", "lucasdavidmiranda8@hotmail.com"], ["token", "76386160-01b2-4bf0-907e-a16ffd5f1d06"], ["created_at", "2023-10-13 17:01:13.066865"], ["updated_at", "2023-10-13 17:01:13.066865"]]
+  ↳ app/controllers/players_controller.rb:37:in `create'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/players_controller.rb:37:in `create'
+Completed 200 OK in 6ms (Views: 0.2ms | ActiveRecord: 1.2ms | Allocations: 4121)
+
+
+Started POST "/players/login" for ::1 at 2023-10-13 14:01:15 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE ((email = 'lucasdavidmiranda8@hotmail.com' OR nickname = NULL) AND password = '123456#') LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:21:in `login'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.2ms | Allocations: 766)
+
+
+Started PUT "/players/c94a6e5a-2ec6-409f-8993-11a5d070890c" for ::1 at 2023-10-13 14:01:22 -0300
+Processing by PlayersController#update as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]", "name"=>"lucas", "lastname"=>"miranda", "nickname"=>"enkinaurio"}, "id"=>"c94a6e5a-2ec6-409f-8993-11a5d070890c"}
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "76386160-01b2-4bf0-907e-a16ffd5f1d06"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "c94a6e5a-2ec6-409f-8993-11a5d070890c"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:45:in `update'
+Completed 404 Not Found in 1ms (ActiveRecord: 0.3ms | Allocations: 1121)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Player with 'id'=c94a6e5a-2ec6-409f-8993-11a5d070890c):
+  
+app/controllers/players_controller.rb:45:in `update'
+Started PUT "/players/73f9c729-d06f-4b35-9984-7143fe8e47cb" for ::1 at 2023-10-13 14:01:39 -0300
+Processing by PlayersController#update as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]", "name"=>"lucas", "lastname"=>"miranda", "nickname"=>"enkinaurio"}, "id"=>"73f9c729-d06f-4b35-9984-7143fe8e47cb"}
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "76386160-01b2-4bf0-907e-a16ffd5f1d06"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "73f9c729-d06f-4b35-9984-7143fe8e47cb"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:45:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/players_controller.rb:47:in `update'
+  [1m[36mPlayer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."nickname" = $1 AND "players"."id" != $2 LIMIT $3[0m  [["nickname", "enkinaurio"], ["id", "73f9c729-d06f-4b35-9984-7143fe8e47cb"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:47:in `update'
+  [1m[36mPlayer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."email" = $1 AND "players"."id" != $2 LIMIT $3[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["id", "73f9c729-d06f-4b35-9984-7143fe8e47cb"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:47:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/players_controller.rb:47:in `update'
+Completed 200 OK in 6ms (Views: 0.2ms | ActiveRecord: 0.8ms | Allocations: 4258)
+
+
+Started POST "/login" for ::1 at 2023-10-13 14:09:55 -0300
+  
+ActionController::RoutingError (No route matches [POST] "/login"):
+  
+Started POST "/player/login" for ::1 at 2023-10-13 14:10:13 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE ((email = 'lucasdavidmiranda8@hotmail.com' OR nickname = NULL) AND password = '123456#') LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:16:in `login'
+Completed 200 OK in 11ms (Views: 0.1ms | ActiveRecord: 3.0ms | Allocations: 6144)
+
+
+Started POST "/player/login" for ::1 at 2023-10-13 14:10:19 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.3ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE ((email = 'lucasdavidmiranda8@hotmail.com' OR nickname = NULL) AND password = '123456#') LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:16:in `login'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.3ms | Allocations: 736)
+
+
+Started PUT "/players/73f9c729-d06f-4b35-9984-7143fe8e47cb" for ::1 at 2023-10-13 14:12:36 -0300
+Processing by PlayersController#update as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]", "name"=>"lucas", "lastname"=>"miranda", "nickname"=>"enkinaurio"}, "id"=>"73f9c729-d06f-4b35-9984-7143fe8e47cb"}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "76386160-01b2-4bf0-907e-a16ffd5f1d06"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "73f9c729-d06f-4b35-9984-7143fe8e47cb"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:40:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/players_controller.rb:42:in `update'
+  [1m[36mPlayer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."nickname" = $1 AND "players"."id" != $2 LIMIT $3[0m  [["nickname", "enkinaurio"], ["id", "73f9c729-d06f-4b35-9984-7143fe8e47cb"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:42:in `update'
+  [1m[36mPlayer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."email" = $1 AND "players"."id" != $2 LIMIT $3[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["id", "73f9c729-d06f-4b35-9984-7143fe8e47cb"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:42:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/players_controller.rb:42:in `update'
+Completed 200 OK in 10ms (Views: 0.2ms | ActiveRecord: 4.5ms | Allocations: 7390)
+
+

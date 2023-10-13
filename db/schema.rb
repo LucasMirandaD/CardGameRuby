@@ -14,23 +14,24 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_22_162722) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "boards", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "boards", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "player_1_id"
     t.bigint "player_2_id"
     t.string "board_name"
     t.integer "turn", default: 0
     t.integer "winner"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["player_1_id"], name: "index_boards_on_player_1_id"
     t.index ["player_2_id"], name: "index_boards_on_player_2_id"
   end
 
-  create_table "players", force: :cascade do |t|
+  create_table "players", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "lastname"
     t.string "password"
     t.string "nickname"
+    t.string "email"
     t.string "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -1,6 +1,6 @@
 class PlayersController < ApplicationController
   include SessionHelper
-  before_action :check_token, except: %i[login create] # , only: [ :show,]
+  before_action :check_token, except: %i[login create]
 
   def index
     players = Player.all
@@ -8,64 +8,56 @@ class PlayersController < ApplicationController
   end
 
   def show
-    @player = Player.find_by(nickname: params[:nickname])
-
-    if @player.present?
-      render json: { player: @player }, status: :ok
-    else
-      render status: 404, json: { message: "no se encuentra el jugador #{params[:nickname]}" }
-    end
+    player = Player.find(params[:id])
+    render json: { player: player }, status: :ok
   end
 
   def login
-    @player = Player.find_by(nickname: params[:nickname], password: params[:password])
-
-    if @player.present?
-      render json: { player: @player }, status: :ok
+    player = Player.find_by('(email = :email OR nickname = :nickname) AND password = :password',
+                            { email: params[:player][:email],
+                              nickname: params[:player][:nickname],
+                              password: params[:player][:password] })
+    if player.present?
+      token = player.token if player.token.present?
+      response.headers['Authorization'] = "Bearer #{token}"
+      render json: {}, status: :ok
     else
-      render json: { message: @player.errors.details }, status: :unprocessable_entity
+      render json: { message: player.errors.details }, status: :unprocessable_entity
     end
   end
 
   def create
-    @player = Player.create(player_params)
+    player = Player.new(player_params)
 
-    if @player.persisted?
-      render json: { player: @player }, status: :ok
+    if player.save
+      render json: { player: player }, status: :ok
     else
-      render json: { message: @player.errors.details }, status: :unprocessable_entity
+      render json: { message: player.errors.details }, status: :unprocessable_entity
     end
   end
 
   def update
-    player = Player.find_by(nickname: params[:nickname])
+    player = Player.find(params[:id])
 
-    if player.present?
-      if player.update(player_params)
-        render json: { player: @player }, status: :ok
-      else
-        render status: 400, json: { message: player.errors.details }
-      end
+    if player.update(player_params)
+      render json: { player: player }, status: :ok
     else
-      render status: 404, json: { message: "No se encuentra el jugador #{params[:id]}" }
+      render json: { message: player.errors.details }, status: :unprocessable_entity
     end
   end
 
-    # def destroy
-
-    #     @player = Player.find_by(nickname: params[:nickname])
-
-    #     if @player.present?
-    #         @player.destroy
-    #         render status:200 ,json: {message: "Se destruyo el jugador #{params[:id]}"}
-    #     else
-    #         render status:404 , json: {message: "No se encuentra el jugador #{params[:id]}"}
-    #     end
-    # end
+  def destroy
+    player = Player.find(params[:id])
+    if player.destroy
+      head :no_content, status: :ok
+    else
+      render json: { message: player.errors.details }, status: :unprocessable_entity
+    end
+  end
 
   private
 
   def player_params
-    params.permit(:name, :lastname, :password, :nickname)
+    params.require(:player).permit(:name, :lastname, :password, :nickname, :email)
   end
 end
