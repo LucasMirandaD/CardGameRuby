@@ -1,8 +1,18 @@
 class Player < ApplicationRecord
-  validates :nickname, :email, uniqueness: true, presence: true
-  has_many :boards
   before_create :set_token
+  ##############################################################################
+  # ASSOCIATIONS
+  ##############################################################################
+  has_many :boards
 
+  ##############################################################################
+  # VALIDATIONS
+  ##############################################################################
+  validates :nickname, :email, uniqueness: true, presence: true
+
+  ##############################################################################
+  # INSTANCE METHODS
+  ##############################################################################
   def set_token
     self.token = SecureRandom.uuid
   end
