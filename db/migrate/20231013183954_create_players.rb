@@ -7,8 +7,10 @@ class CreatePlayers < ActiveRecord::Migration[7.0]
       t.string :nickname, unique: true
       t.string :email, unique: true
       t.string :token, optional: true
-
+      t.uuid :image_id
       t.timestamps
     end
+
+    add_foreign_key :players, :images, column: :image_id, on_delete: :nullify
   end
 end
