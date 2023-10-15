@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_13_184330) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_15_212122) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,15 +43,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_13_184330) do
   end
 
   create_table "boards", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.bigint "player_1_id"
-    t.bigint "player_2_id"
+    t.uuid "player1_id", null: false
+    t.uuid "player2_id"
     t.string "board_name"
-    t.integer "turn", default: 0
     t.integer "winner"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["player_1_id"], name: "index_boards_on_player_1_id"
-    t.index ["player_2_id"], name: "index_boards_on_player_2_id"
   end
 
   create_table "images", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -74,6 +71,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_13_184330) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "boards", "players", column: "player1_id"
+  add_foreign_key "boards", "players", column: "player2_id"
   add_foreign_key "images", "players", on_delete: :cascade
   add_foreign_key "players", "images", on_delete: :nullify
 end

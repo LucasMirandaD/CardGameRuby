@@ -6,5 +6,5 @@ Rails.application.routes.draw do
      put :update_image
    end
 
-   resources :boards, only: %i[create update destroy]
+   resources :boards, only: %i[index show create update destroy]
  end

@@ -2327,3 +2327,1219 @@ Completed 200 OK in 55ms (Views: 0.2ms | ActiveRecord: 11.4ms | Allocations: 584
 [ActiveJob] [ActiveStorage::AnalyzeJob] [c1efd5d4-60a9-47ee-bcf6-be3cd1f9e584]   [1m[36mActiveStorage::Blob Update (0.2ms)[0m  [1m[33mUPDATE "active_storage_blobs" SET "metadata" = $1 WHERE "active_storage_blobs"."id" = $2[0m  [["metadata", "{\"identified\":true,\"analyzed\":true}"], ["id", 12]]
 [ActiveJob] [ActiveStorage::AnalyzeJob] [c1efd5d4-60a9-47ee-bcf6-be3cd1f9e584]   [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT[0m
 [ActiveJob] [ActiveStorage::AnalyzeJob] [c1efd5d4-60a9-47ee-bcf6-be3cd1f9e584] Performed ActiveStorage::AnalyzeJob (Job ID: c1efd5d4-60a9-47ee-bcf6-be3cd1f9e584) from Async(default) in 20.84ms
+Started GET "/boards" for ::1 at 2023-10-15 17:27:57 -0300
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActionController::RoutingError (No route matches [GET] "/boards"):
+  
+Started GET "/boards/:id" for ::1 at 2023-10-15 17:30:44 -0300
+Processing by BoardsController#show as */*
+  Parameters: {"id"=>":id", "board"=>{}}
+  [1m[36mBoard Load (0.2ms)[0m  [1m[34mSELECT "boards".* FROM "boards" WHERE "boards"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:12:in `show'
+Completed 404 Not Found in 4ms (ActiveRecord: 2.3ms | Allocations: 2721)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Board with 'id'=:id):
+  
+app/controllers/boards_controller.rb:12:in `show'
+Started GET "/boards" for ::1 at 2023-10-15 17:31:03 -0300
+Processing by BoardsController#index as */*
+  Parameters: {"board"=>{}}
+  [1m[36mBoard Load (0.2ms)[0m  [1m[34mSELECT "boards".* FROM "boards"[0m
+  ↳ app/controllers/boards_controller.rb:8:in `index'
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.2ms | Allocations: 919)
+
+
+Started POST "/player/login" for ::1 at 2023-10-15 17:39:06 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.4ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE ((email = 'lucasdavidmiranda8@hotmail.com' OR nickname = NULL) AND password = '123456#') LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:18:in `login'
+Completed 500 Internal Server Error in 10ms (ActiveRecord: 2.9ms | Allocations: 4134)
+
+
+  
+NoMethodError (undefined method `errors' for nil:NilClass):
+  
+app/controllers/players_controller.rb:27:in `login'
+Started POST "/players" for ::1 at 2023-10-15 17:39:09 -0300
+Processing by PlayersController#create as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]", "name"=>"lucas", "lastname"=>"miranda", "nickname"=>"enkinaurio"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."nickname" = $1 LIMIT $2[0m  [["nickname", "enkinaurio"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."email" = $1 LIMIT $2[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Create (0.3ms)[0m  [1m[32mINSERT INTO "players" ("name", "lastname", "password", "nickname", "email", "token", "image_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "lucas"], ["lastname", "miranda"], ["password", "123456#"], ["nickname", "enkinaurio"], ["email", "lucasdavidmiranda8@hotmail.com"], ["token", "9990cdcc-2bb6-405f-bf00-7051f45012c4"], ["image_id", nil], ["created_at", "2023-10-15 20:39:09.327503"], ["updated_at", "2023-10-15 20:39:09.327503"]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+Completed 200 OK in 10ms (Views: 0.2ms | ActiveRecord: 3.1ms | Allocations: 10850)
+
+
+Started POST "/player/login" for ::1 at 2023-10-15 17:39:17 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.3ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE ((email = 'lucasdavidmiranda8@hotmail.com' OR nickname = NULL) AND password = '123456#') LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:18:in `login'
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.3ms | Allocations: 772)
+
+
+Started GET "/boards" for ::1 at 2023-10-15 17:39:37 -0300
+Processing by BoardsController#index as */*
+  Parameters: {"board"=>{}}
+  [1m[36mBoard Load (0.3ms)[0m  [1m[34mSELECT "boards".* FROM "boards"[0m
+  ↳ app/controllers/boards_controller.rb:8:in `index'
+Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.3ms | Allocations: 920)
+
+
+Started POST "/boards" for ::1 at 2023-10-15 17:39:53 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1"=>"636776e2-5667-4403-8023-b2ccccc6557d"}}
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "9990cdcc-2bb6-405f-bf00-7051f45012c4"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.3ms | Allocations: 783)
+
+
+  
+NoMethodError (undefined method `set_game' for #<BoardsController:0x00000000010e78>):
+  
+activesupport (7.0.8) lib/active_support/callbacks.rb:400:in `block in make_lambda'
+activesupport (7.0.8) lib/active_support/callbacks.rb:180:in `block (2 levels) in halting_and_conditional'
+actionpack (7.0.8) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (7.0.8) lib/active_support/callbacks.rb:181:in `block in halting_and_conditional'
+activesupport (7.0.8) lib/active_support/callbacks.rb:595:in `block in invoke_before'
+activesupport (7.0.8) lib/active_support/callbacks.rb:595:in `each'
+activesupport (7.0.8) lib/active_support/callbacks.rb:595:in `invoke_before'
+activesupport (7.0.8) lib/active_support/callbacks.rb:116:in `block in run_callbacks'
+actiontext (7.0.8) lib/action_text/rendering.rb:20:in `with_renderer'
+actiontext (7.0.8) lib/action_text/engine.rb:69:in `block (4 levels) in <class:Engine>'
+activesupport (7.0.8) lib/active_support/callbacks.rb:127:in `instance_exec'
+activesupport (7.0.8) lib/active_support/callbacks.rb:127:in `block in run_callbacks'
+activesupport (7.0.8) lib/active_support/callbacks.rb:138:in `run_callbacks'
+actionpack (7.0.8) lib/abstract_controller/callbacks.rb:233:in `process_action'
+actionpack (7.0.8) lib/action_controller/metal/rescue.rb:23:in `process_action'
+actionpack (7.0.8) lib/action_controller/metal/instrumentation.rb:67:in `block in process_action'
+activesupport (7.0.8) lib/active_support/notifications.rb:206:in `block in instrument'
+activesupport (7.0.8) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (7.0.8) lib/active_support/notifications.rb:206:in `instrument'
+actionpack (7.0.8) lib/action_controller/metal/instrumentation.rb:66:in `process_action'
+actionpack (7.0.8) lib/action_controller/metal/params_wrapper.rb:259:in `process_action'
+activerecord (7.0.8) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (7.0.8) lib/abstract_controller/base.rb:151:in `process'
+actionview (7.0.8) lib/action_view/rendering.rb:39:in `process'
+actionpack (7.0.8) lib/action_controller/metal.rb:188:in `dispatch'
+actionpack (7.0.8) lib/action_controller/metal.rb:251:in `dispatch'
+actionpack (7.0.8) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.0.8) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.0.8) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (7.0.8) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (7.0.8) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.0.8) lib/action_dispatch/routing/route_set.rb:852:in `call'
+rack (2.2.8) lib/rack/etag.rb:27:in `call'
+rack (2.2.8) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.8) lib/rack/head.rb:12:in `call'
+activerecord (7.0.8) lib/active_record/migration.rb:638:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.8) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.8) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/show_exceptions.rb:29:in `call'
+railties (7.0.8) lib/rails/rack/logger.rb:40:in `call_app'
+railties (7.0.8) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.8) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.8) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.8) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.8) lib/rails/rack/logger.rb:25:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.8) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.8) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.0.8) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.0.8) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.8) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/host_authorization.rb:138:in `call'
+rack-cors (2.0.1) lib/rack/cors.rb:102:in `call'
+railties (7.0.8) lib/rails/engine.rb:530:in `call'
+puma (5.6.7) lib/puma/configuration.rb:252:in `call'
+puma (5.6.7) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.6.7) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.6.7) lib/puma/request.rb:76:in `handle_request'
+puma (5.6.7) lib/puma/server.rb:443:in `process_client'
+puma (5.6.7) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started POST "/boards" for ::1 at 2023-10-15 17:40:20 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1"=>"636776e2-5667-4403-8023-b2ccccc6557d"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "9990cdcc-2bb6-405f-bf00-7051f45012c4"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 11ms (ActiveRecord: 2.8ms | Allocations: 10442)
+
+
+  
+NoMethodError (undefined method `save?' for #<Board id: nil, player1_id: nil, player2_id: nil, board_name: nil, turn: 0, winner: nil, created_at: nil, updated_at: nil>):
+  
+app/controllers/boards_controller.rb:19:in `create'
+Started POST "/boards" for ::1 at 2023-10-15 17:40:45 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1"=>"636776e2-5667-4403-8023-b2ccccc6557d"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "9990cdcc-2bb6-405f-bf00-7051f45012c4"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/boards_controller.rb:17:in `create'
+  [1m[36mBoard Create (0.3ms)[0m  [1m[32mINSERT INTO "boards" ("player1_id", "player2_id", "board_name", "turn", "winner", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["player1_id", 636776], ["player2_id", nil], ["board_name", nil], ["turn", 0], ["winner", nil], ["created_at", "2023-10-15 20:40:45.080013"], ["updated_at", "2023-10-15 20:40:45.080013"]]
+  ↳ app/controllers/boards_controller.rb:17:in `create'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/boards_controller.rb:17:in `create'
+Completed 500 Internal Server Error in 10ms (ActiveRecord: 4.0ms | Allocations: 9720)
+
+
+  
+NoMethodError (undefined method `save?' for #<Board id: "785a962a-9a6d-44d6-a903-f920cb1b3551", player1_id: 636776, player2_id: nil, board_name: nil, turn: 0, winner: nil, created_at: "2023-10-15 20:40:45.080013000 +0000", updated_at: "2023-10-15 20:40:45.080013000 +0000">):
+  
+app/controllers/boards_controller.rb:19:in `create'
+Started POST "/boards" for ::1 at 2023-10-15 17:42:11 -0300
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1"=>"636776e2-5667-4403-8023-b2ccccc6557d"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "9990cdcc-2bb6-405f-bf00-7051f45012c4"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 8ms (ActiveRecord: 3.1ms | Allocations: 7648)
+
+
+  
+NoMethodError (undefined method `save?' for #<Board id: nil, player1_id: 636776, player2_id: nil, board_name: nil, turn: 0, winner: nil, created_at: nil, updated_at: nil>):
+  
+app/controllers/boards_controller.rb:19:in `create'
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (13.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS "card_game_backend_development"[0m
+  [1m[35m (12.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS "card_game_backend_test"[0m
+  [1m[35m (21.1ms)[0m  [1m[35mCREATE DATABASE "card_game_backend_development" ENCODING = 'unicode'[0m
+  [1m[35m (21.1ms)[0m  [1m[35mCREATE DATABASE "card_game_backend_test" ENCODING = 'unicode'[0m
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (2.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3379173675217033995)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateBoards (20220522162722)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE "boards" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "player1_id" bigint, "player2_id" bigint, "board_name" character varying, "winner" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE INDEX "index_boards_on_player1_id" ON "boards" ("player1_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE INDEX "index_boards_on_player2_id" ON "boards" ("player2_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20220522162722"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateActiveStorageTables (20231013182339)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.4ms)[0m  [1m[35mCREATE TABLE "active_storage_blobs" ("id" bigserial primary key, "key" character varying NOT NULL, "filename" character varying NOT NULL, "content_type" character varying, "metadata" text, "service_name" character varying NOT NULL, "byte_size" bigint NOT NULL, "checksum" character varying, "created_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_blobs_on_key" ON "active_storage_blobs" ("key")[0m
+  [1m[35m (3.3ms)[0m  [1m[35mCREATE TABLE "active_storage_attachments" ("id" bigserial primary key, "name" character varying NOT NULL, "record_type" character varying NOT NULL, "record_id" bigint NOT NULL, "blob_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_c3b3935057"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+)[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE INDEX "index_active_storage_attachments_on_blob_id" ON "active_storage_attachments" ("blob_id")[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_attachments_uniqueness" ON "active_storage_attachments" ("record_type", "record_id", "name", "blob_id")[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE TABLE "active_storage_variant_records" ("id" bigserial primary key, "blob_id" bigint NOT NULL, "variation_digest" character varying NOT NULL, CONSTRAINT "fk_rails_993965df05"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_variant_records_uniqueness" ON "active_storage_variant_records" ("blob_id", "variation_digest")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20231013182339"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateImages (20231013183935)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "images" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20231013183935"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreatePlayers (20231013183954)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE TABLE "players" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "name" character varying, "lastname" character varying, "password" character varying, "nickname" character varying, "email" character varying, "token" character varying, "image_id" uuid, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "players" ADD CONSTRAINT "fk_rails_884bb50f59"
+FOREIGN KEY ("image_id")
+  REFERENCES "images" ("id")
+ ON DELETE SET NULL[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20231013183954"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddPlayerToImages (20231013184330)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "images" ADD "player_id" uuid NOT NULL[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "images" ADD CONSTRAINT "fk_rails_e73d825546"
+FOREIGN KEY ("player_id")
+  REFERENCES "players" ("id")
+ ON DELETE CASCADE[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20231013184330"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-10-15 20:42:45.599416"], ["updated_at", "2023-10-15 20:42:45.599416"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(3379173675217033995)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/players" for ::1 at 2023-10-15 17:42:55 -0300
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PlayersController#create as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]", "name"=>"lucas", "lastname"=>"miranda", "nickname"=>"enkinaurio"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."nickname" = $1 LIMIT $2[0m  [["nickname", "enkinaurio"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."email" = $1 LIMIT $2[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Create (0.3ms)[0m  [1m[32mINSERT INTO "players" ("name", "lastname", "password", "nickname", "email", "token", "image_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "lucas"], ["lastname", "miranda"], ["password", "123456#"], ["nickname", "enkinaurio"], ["email", "lucasdavidmiranda8@hotmail.com"], ["token", "75e2264a-b7bf-4829-9bc1-6a5410d4c27a"], ["image_id", nil], ["created_at", "2023-10-15 20:42:55.349360"], ["updated_at", "2023-10-15 20:42:55.349360"]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+Completed 200 OK in 12ms (Views: 0.2ms | ActiveRecord: 3.4ms | Allocations: 12946)
+
+
+Started POST "/player/login" for ::1 at 2023-10-15 17:43:04 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE ((email = 'lucasdavidmiranda8@hotmail.com' OR nickname = NULL) AND password = '123456#') LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:18:in `login'
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.2ms | Allocations: 920)
+
+
+Started POST "/boards" for ::1 at 2023-10-15 17:43:27 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1"=>"c493ecc7-0c31-4e90-aff8-1c2cce44049b"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "75e2264a-b7bf-4829-9bc1-6a5410d4c27a"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 8ms (ActiveRecord: 1.7ms | Allocations: 6035)
+
+
+  
+NoMethodError (undefined method `save?' for #<Board id: nil, player1_id: 0, player2_id: nil, board_name: nil, winner: nil, created_at: nil, updated_at: nil>):
+  
+app/controllers/boards_controller.rb:19:in `create'
+Started POST "/boards" for ::1 at 2023-10-15 17:44:32 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1"=>"c493ecc7-0c31-4e90-aff8-1c2cce44049b"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "75e2264a-b7bf-4829-9bc1-6a5410d4c27a"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+Completed 404 Not Found in 5ms (ActiveRecord: 1.7ms | Allocations: 4732)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  
+app/controllers/boards_controller.rb:16:in `create'
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "c493ecc7-0c31-4e90-aff8-1c2cce44049b"], ["LIMIT", 1]]
+Started POST "/boards" for ::1 at 2023-10-15 17:46:57 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"c493ecc7-0c31-4e90-aff8-1c2cce44049b"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "75e2264a-b7bf-4829-9bc1-6a5410d4c27a"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+Completed 404 Not Found in 5ms (ActiveRecord: 1.6ms | Allocations: 4708)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Player without an ID):
+  
+app/controllers/boards_controller.rb:16:in `create'
+Started POST "/boards" for ::1 at 2023-10-15 17:47:21 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"c493ecc7-0c31-4e90-aff8-1c2cce44049b"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "75e2264a-b7bf-4829-9bc1-6a5410d4c27a"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "c493ecc7-0c31-4e90-aff8-1c2cce44049b"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 8ms (ActiveRecord: 2.8ms | Allocations: 7402)
+
+
+  
+NoMethodError (undefined method `save?' for #<Board id: nil, player1_id: 0, player2_id: nil, board_name: "Nombre_del_Tablero", winner: nil, created_at: nil, updated_at: nil>):
+  
+app/controllers/boards_controller.rb:19:in `create'
+Started POST "/boards" for ::1 at 2023-10-15 17:47:33 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"c493ecc7-0c31-4e90-aff8-1c2cce44049b"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "75e2264a-b7bf-4829-9bc1-6a5410d4c27a"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "c493ecc7-0c31-4e90-aff8-1c2cce44049b"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 8ms (ActiveRecord: 2.7ms | Allocations: 7388)
+
+
+  
+NoMethodError (undefined method `save?' for #<Board id: nil, player1_id: 0, player2_id: nil, board_name: nil, winner: nil, created_at: nil, updated_at: nil>):
+  
+app/controllers/boards_controller.rb:19:in `create'
+Started POST "/boards" for ::1 at 2023-10-15 17:47:52 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"c493ecc7-0c31-4e90-aff8-1c2cce44049b"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "75e2264a-b7bf-4829-9bc1-6a5410d4c27a"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "c493ecc7-0c31-4e90-aff8-1c2cce44049b"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 8ms (ActiveRecord: 2.7ms | Allocations: 7394)
+
+
+  
+NoMethodError (undefined method `save?' for #<Board id: nil, player1_id: 0, player2_id: nil, board_name: "Nombre_del_Tablero", winner: nil, created_at: nil, updated_at: nil>):
+  
+app/controllers/boards_controller.rb:19:in `create'
+Started POST "/boards" for ::1 at 2023-10-15 17:48:15 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"c493ecc7-0c31-4e90-aff8-1c2cce44049b"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "75e2264a-b7bf-4829-9bc1-6a5410d4c27a"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+Completed 404 Not Found in 6ms (ActiveRecord: 2.2ms | Allocations: 5375)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Player with 'id'={:id=>"c493ecc7-0c31-4e90-aff8-1c2cce44049b"}):
+  
+app/controllers/boards_controller.rb:16:in `create'
+Started POST "/boards" for ::1 at 2023-10-15 17:48:36 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"c493ecc7-0c31-4e90-aff8-1c2cce44049b"}}
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "75e2264a-b7bf-4829-9bc1-6a5410d4c27a"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+Completed 404 Not Found in 2ms (ActiveRecord: 0.3ms | Allocations: 1279)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Player with 'id'={:id=>"c493ecc7-0c31-4e90-aff8-1c2cce44049b"}):
+  
+app/controllers/boards_controller.rb:16:in `create'
+Started POST "/boards" for ::1 at 2023-10-15 17:48:49 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"c493ecc7-0c31-4e90-aff8-1c2cce44049b"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "75e2264a-b7bf-4829-9bc1-6a5410d4c27a"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "c493ecc7-0c31-4e90-aff8-1c2cce44049b"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 7ms (ActiveRecord: 2.5ms | Allocations: 7388)
+
+
+  
+NoMethodError (undefined method `save?' for #<Board id: nil, player1_id: 0, player2_id: nil, board_name: "Nombre_del_Tablero", winner: nil, created_at: nil, updated_at: nil>):
+  
+app/controllers/boards_controller.rb:19:in `create'
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (35.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS "card_game_backend_development"[0m
+  [1m[35m (13.0ms)[0m  [1m[35mDROP DATABASE IF EXISTS "card_game_backend_test"[0m
+  [1m[35m (21.8ms)[0m  [1m[35mCREATE DATABASE "card_game_backend_development" ENCODING = 'unicode'[0m
+  [1m[35m (20.6ms)[0m  [1m[35mCREATE DATABASE "card_game_backend_test" ENCODING = 'unicode'[0m
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3379173675217033995)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateBoards (20220522162722)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE "boards" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "player1_id" bigint, "player2_id" bigint, "board_name" character varying, "winner" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE INDEX "index_boards_on_player1_id" ON "boards" ("player1_id")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE INDEX "index_boards_on_player2_id" ON "boards" ("player2_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20220522162722"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateActiveStorageTables (20231013182339)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "active_storage_blobs" ("id" bigserial primary key, "key" character varying NOT NULL, "filename" character varying NOT NULL, "content_type" character varying, "metadata" text, "service_name" character varying NOT NULL, "byte_size" bigint NOT NULL, "checksum" character varying, "created_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_blobs_on_key" ON "active_storage_blobs" ("key")[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE TABLE "active_storage_attachments" ("id" bigserial primary key, "name" character varying NOT NULL, "record_type" character varying NOT NULL, "record_id" bigint NOT NULL, "blob_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_c3b3935057"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE INDEX "index_active_storage_attachments_on_blob_id" ON "active_storage_attachments" ("blob_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_attachments_uniqueness" ON "active_storage_attachments" ("record_type", "record_id", "name", "blob_id")[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE TABLE "active_storage_variant_records" ("id" bigserial primary key, "blob_id" bigint NOT NULL, "variation_digest" character varying NOT NULL, CONSTRAINT "fk_rails_993965df05"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_variant_records_uniqueness" ON "active_storage_variant_records" ("blob_id", "variation_digest")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20231013182339"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateImages (20231013183935)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "images" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20231013183935"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreatePlayers (20231013183954)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE TABLE "players" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "name" character varying, "lastname" character varying, "password" character varying, "nickname" character varying, "email" character varying, "token" character varying, "image_id" uuid, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "players" ADD CONSTRAINT "fk_rails_884bb50f59"
+FOREIGN KEY ("image_id")
+  REFERENCES "images" ("id")
+ ON DELETE SET NULL[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20231013183954"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddPlayerToImages (20231013184330)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "images" ADD "player_id" uuid NOT NULL[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "images" ADD CONSTRAINT "fk_rails_e73d825546"
+FOREIGN KEY ("player_id")
+  REFERENCES "players" ("id")
+ ON DELETE CASCADE[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20231013184330"]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-10-15 20:50:45.687876"], ["updated_at", "2023-10-15 20:50:45.687876"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(3379173675217033995)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/boards" for ::1 at 2023-10-15 17:51:57 -0300
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"c493ecc7-0c31-4e90-aff8-1c2cce44049b"}}
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "75e2264a-b7bf-4829-9bc1-6a5410d4c27a"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+Filter chain halted as :check_token rendered or redirected
+Completed 401 Unauthorized in 7ms (Views: 0.1ms | ActiveRecord: 0.9ms | Allocations: 4993)
+
+
+Started POST "/players" for ::1 at 2023-10-15 17:52:02 -0300
+Processing by PlayersController#create as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]", "name"=>"lucas", "lastname"=>"miranda", "nickname"=>"enkinaurio"}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."nickname" = $1 LIMIT $2[0m  [["nickname", "enkinaurio"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."email" = $1 LIMIT $2[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Create (0.4ms)[0m  [1m[32mINSERT INTO "players" ("name", "lastname", "password", "nickname", "email", "token", "image_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "lucas"], ["lastname", "miranda"], ["password", "123456#"], ["nickname", "enkinaurio"], ["email", "lucasdavidmiranda8@hotmail.com"], ["token", "5424bf74-4a3d-433e-b109-57f32ff86245"], ["image_id", nil], ["created_at", "2023-10-15 20:52:02.773001"], ["updated_at", "2023-10-15 20:52:02.773001"]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+Completed 200 OK in 23ms (Views: 0.2ms | ActiveRecord: 2.7ms | Allocations: 10444)
+
+
+Started POST "/player/login" for ::1 at 2023-10-15 17:52:13 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.3ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE ((email = 'lucasdavidmiranda8@hotmail.com' OR nickname = NULL) AND password = '123456#') LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:18:in `login'
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.3ms | Allocations: 849)
+
+
+Started GET "/boards" for ::1 at 2023-10-15 17:52:29 -0300
+Processing by BoardsController#index as */*
+  Parameters: {"board"=>{}}
+  [1m[36mBoard Load (0.4ms)[0m  [1m[34mSELECT "boards".* FROM "boards"[0m
+  ↳ app/controllers/boards_controller.rb:7:in `index'
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 1.6ms | Allocations: 838)
+
+
+Started POST "/boards" for ::1 at 2023-10-15 17:52:42 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"81dd2e65-bc07-488a-ace0-f3d9676ab845"}}
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "5424bf74-4a3d-433e-b109-57f32ff86245"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "81dd2e65-bc07-488a-ace0-f3d9676ab845"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 8ms (ActiveRecord: 1.9ms | Allocations: 5183)
+
+
+  
+NoMethodError (undefined method `save?' for #<Board id: nil, player1_id: 81, player2_id: nil, board_name: "Nombre_del_Tablero", winner: nil, created_at: nil, updated_at: nil>):
+  
+app/controllers/boards_controller.rb:19:in `create'
+Started POST "/boards" for ::1 at 2023-10-15 17:54:14 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"81dd2e65-bc07-488a-ace0-f3d9676ab845"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "5424bf74-4a3d-433e-b109-57f32ff86245"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "81dd2e65-bc07-488a-ace0-f3d9676ab845"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 8ms (ActiveRecord: 2.6ms | Allocations: 7387)
+
+
+  
+NoMethodError (undefined method `save?' for #<Board id: nil, player1_id: 81, player2_id: nil, board_name: "Nombre_del_Tablero", winner: nil, created_at: nil, updated_at: nil>):
+  
+app/controllers/boards_controller.rb:20:in `create'
+Started POST "/boards" for ::1 at 2023-10-15 17:54:43 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"81dd2e65-bc07-488a-ace0-f3d9676ab845"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "5424bf74-4a3d-433e-b109-57f32ff86245"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "81dd2e65-bc07-488a-ace0-f3d9676ab845"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/boards_controller.rb:19:in `create'
+  [1m[36mBoard Create (0.3ms)[0m  [1m[32mINSERT INTO "boards" ("player1_id", "player2_id", "board_name", "winner", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["player1_id", 81], ["player2_id", nil], ["board_name", "Nombre_del_Tablero"], ["winner", nil], ["created_at", "2023-10-15 20:54:43.328998"], ["updated_at", "2023-10-15 20:54:43.328998"]]
+  ↳ app/controllers/boards_controller.rb:19:in `create'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/boards_controller.rb:19:in `create'
+Completed 200 OK in 10ms (Views: 0.2ms | ActiveRecord: 3.6ms | Allocations: 9443)
+
+
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "81dd2e65-bc07-488a-ace0-f3d9676ab845"], ["LIMIT", 1]]
+  [1m[36mBoard Load (0.3ms)[0m  [1m[34mSELECT "boards".* FROM "boards" ORDER BY "boards"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPlayer Load (0.4ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+Started POST "/boards" for ::1 at 2023-10-15 17:57:46 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"81dd2e65-bc07-488a-ace0-f3d9676ab845"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "5424bf74-4a3d-433e-b109-57f32ff86245"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "81dd2e65-bc07-488a-ace0-f3d9676ab845"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+  [1m[36mBoard Create (0.2ms)[0m  [1m[32mINSERT INTO "boards" ("player1_id", "player2_id", "board_name", "winner", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["player1_id", 81], ["player2_id", nil], ["board_name", "Nombre_del_Tablero"], ["winner", nil], ["created_at", "2023-10-15 20:57:46.476457"], ["updated_at", "2023-10-15 20:57:46.476457"]]
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+Completed 200 OK in 11ms (Views: 0.2ms | ActiveRecord: 3.9ms | Allocations: 9402)
+
+
+Started GET "/boards" for ::1 at 2023-10-15 17:57:54 -0300
+Processing by BoardsController#index as */*
+  Parameters: {"board"=>{}}
+  [1m[36mBoard Load (0.2ms)[0m  [1m[34mSELECT "boards".* FROM "boards"[0m
+  ↳ app/controllers/boards_controller.rb:7:in `index'
+Completed 200 OK in 1ms (Views: 1.1ms | ActiveRecord: 0.2ms | Allocations: 1028)
+
+
+Started DELETE "/boards/2bba218f-d648-48d6-a89f-1191bf3f4bbe" for ::1 at 2023-10-15 17:58:14 -0300
+Processing by BoardsController#destroy as */*
+  Parameters: {"id"=>"2bba218f-d648-48d6-a89f-1191bf3f4bbe", "board"=>{}}
+  [1m[36mBoard Load (0.2ms)[0m  [1m[34mSELECT "boards".* FROM "boards" WHERE "boards"."id" = $1 LIMIT $2[0m  [["id", "2bba218f-d648-48d6-a89f-1191bf3f4bbe"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:28:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/boards_controller.rb:29:in `destroy'
+  [1m[36mBoard Destroy (0.2ms)[0m  [1m[31mDELETE FROM "boards" WHERE "boards"."id" = $1[0m  [["id", "2bba218f-d648-48d6-a89f-1191bf3f4bbe"]]
+  ↳ app/controllers/boards_controller.rb:29:in `destroy'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/boards_controller.rb:29:in `destroy'
+Completed 200 OK in 4ms (Views: 0.1ms | ActiveRecord: 0.9ms | Allocations: 2298)
+
+
+Started GET "/boards" for ::1 at 2023-10-15 17:58:29 -0300
+Processing by BoardsController#index as */*
+  Parameters: {"board"=>{}}
+  [1m[36mBoard Load (0.2ms)[0m  [1m[34mSELECT "boards".* FROM "boards"[0m
+  ↳ app/controllers/boards_controller.rb:7:in `index'
+Completed 200 OK in 1ms (Views: 1.0ms | ActiveRecord: 0.2ms | Allocations: 831)
+
+
+Started PUT "/boards/b83b65f1-5e32-42ef-9e8d-0e8f6fcad90b" for ::1 at 2023-10-15 17:58:39 -0300
+  
+AbstractController::ActionNotFound (The action 'update' could not be found for BoardsController):
+  
+actionpack (7.0.8) lib/abstract_controller/base.rb:146:in `process'
+actionview (7.0.8) lib/action_view/rendering.rb:39:in `process'
+actionpack (7.0.8) lib/action_controller/metal.rb:188:in `dispatch'
+actionpack (7.0.8) lib/action_controller/metal.rb:251:in `dispatch'
+actionpack (7.0.8) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.0.8) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.0.8) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (7.0.8) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (7.0.8) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.0.8) lib/action_dispatch/routing/route_set.rb:852:in `call'
+rack (2.2.8) lib/rack/etag.rb:27:in `call'
+rack (2.2.8) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.8) lib/rack/head.rb:12:in `call'
+activerecord (7.0.8) lib/active_record/migration.rb:638:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.8) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.8) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/show_exceptions.rb:29:in `call'
+railties (7.0.8) lib/rails/rack/logger.rb:40:in `call_app'
+railties (7.0.8) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.8) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.8) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.8) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.8) lib/rails/rack/logger.rb:25:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.8) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.8) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.0.8) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.0.8) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.8) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/host_authorization.rb:138:in `call'
+rack-cors (2.0.1) lib/rack/cors.rb:102:in `call'
+railties (7.0.8) lib/rails/engine.rb:530:in `call'
+puma (5.6.7) lib/puma/configuration.rb:252:in `call'
+puma (5.6.7) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.6.7) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.6.7) lib/puma/request.rb:76:in `handle_request'
+puma (5.6.7) lib/puma/server.rb:443:in `process_client'
+puma (5.6.7) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started PUT "/boards/b83b65f1-5e32-42ef-9e8d-0e8f6fcad90b" for ::1 at 2023-10-15 17:59:02 -0300
+  
+AbstractController::ActionNotFound (The action 'update' could not be found for BoardsController):
+  
+actionpack (7.0.8) lib/abstract_controller/base.rb:146:in `process'
+actionview (7.0.8) lib/action_view/rendering.rb:39:in `process'
+actionpack (7.0.8) lib/action_controller/metal.rb:188:in `dispatch'
+actionpack (7.0.8) lib/action_controller/metal.rb:251:in `dispatch'
+actionpack (7.0.8) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.0.8) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.0.8) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (7.0.8) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (7.0.8) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.0.8) lib/action_dispatch/routing/route_set.rb:852:in `call'
+rack (2.2.8) lib/rack/etag.rb:27:in `call'
+rack (2.2.8) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.8) lib/rack/head.rb:12:in `call'
+activerecord (7.0.8) lib/active_record/migration.rb:638:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.8) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.8) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/show_exceptions.rb:29:in `call'
+railties (7.0.8) lib/rails/rack/logger.rb:40:in `call_app'
+railties (7.0.8) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.8) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.8) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.8) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.8) lib/rails/rack/logger.rb:25:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.8) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.8) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.0.8) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.0.8) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.8) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.8) lib/action_dispatch/middleware/host_authorization.rb:138:in `call'
+rack-cors (2.0.1) lib/rack/cors.rb:102:in `call'
+railties (7.0.8) lib/rails/engine.rb:530:in `call'
+puma (5.6.7) lib/puma/configuration.rb:252:in `call'
+puma (5.6.7) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.6.7) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.6.7) lib/puma/request.rb:76:in `handle_request'
+puma (5.6.7) lib/puma/server.rb:443:in `process_client'
+puma (5.6.7) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started GET "/boards" for ::1 at 2023-10-15 17:59:38 -0300
+Processing by BoardsController#index as */*
+  Parameters: {"board"=>{}}
+  [1m[36mBoard Load (0.2ms)[0m  [1m[34mSELECT "boards".* FROM "boards"[0m
+  ↳ app/controllers/boards_controller.rb:7:in `index'
+Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.2ms | Allocations: 830)
+
+
+Started PUT "/boards/b83b65f1-5e32-42ef-9e8d-0e8f6fcad90b" for ::1 at 2023-10-15 18:00:17 -0300
+Processing by BoardsController#update as */*
+  Parameters: {"board"=>{"board_name"=>"Nuevo_Nombre_del_Tablero", "winner"=>1}, "id"=>"b83b65f1-5e32-42ef-9e8d-0e8f6fcad90b"}
+  [1m[36mBoard Load (0.2ms)[0m  [1m[34mSELECT "boards".* FROM "boards" WHERE "boards"."id" = $1 LIMIT $2[0m  [["id", "b83b65f1-5e32-42ef-9e8d-0e8f6fcad90b"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:34:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/boards_controller.rb:35:in `update'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:35:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/boards_controller.rb:35:in `update'
+Completed 422 Unprocessable Entity in 12ms (Views: 0.1ms | ActiveRecord: 4.0ms | Allocations: 7931)
+
+
+Started PUT "/boards/b83b65f1-5e32-42ef-9e8d-0e8f6fcad90b" for ::1 at 2023-10-15 18:00:27 -0300
+Processing by BoardsController#update as */*
+  Parameters: {"board"=>{"board_name"=>"Nuevo_Nombre_del_Tablero", "player2"=>"jugador2_id", "winner"=>1}, "id"=>"b83b65f1-5e32-42ef-9e8d-0e8f6fcad90b"}
+  [1m[36mBoard Load (0.3ms)[0m  [1m[34mSELECT "boards".* FROM "boards" WHERE "boards"."id" = $1 LIMIT $2[0m  [["id", "b83b65f1-5e32-42ef-9e8d-0e8f6fcad90b"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:34:in `update'
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.3ms | Allocations: 788)
+
+
+  
+ActiveRecord::AssociationTypeMismatch (Player(#50760) expected, got "jugador2_id" which is an instance of String(#2060)):
+  
+app/controllers/boards_controller.rb:35:in `update'
+Started PUT "/boards/b83b65f1-5e32-42ef-9e8d-0e8f6fcad90b" for ::1 at 2023-10-15 18:00:51 -0300
+Processing by BoardsController#update as */*
+  Parameters: {"board"=>{"board_name"=>"Nuevo_Nombre_del_Tablero", "winner"=>1}, "id"=>"b83b65f1-5e32-42ef-9e8d-0e8f6fcad90b"}
+  [1m[36mBoard Load (0.2ms)[0m  [1m[34mSELECT "boards".* FROM "boards" WHERE "boards"."id" = $1 LIMIT $2[0m  [["id", "b83b65f1-5e32-42ef-9e8d-0e8f6fcad90b"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:34:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/boards_controller.rb:35:in `update'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:35:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/boards_controller.rb:35:in `update'
+Completed 422 Unprocessable Entity in 3ms (Views: 0.1ms | ActiveRecord: 0.5ms | Allocations: 2943)
+
+
+Started POST "/boards" for ::1 at 2023-10-15 18:02:26 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"81dd2e65-bc07-488a-ace0-f3d9676ab845"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "5424bf74-4a3d-433e-b109-57f32ff86245"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "81dd2e65-bc07-488a-ace0-f3d9676ab845"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/boards_controller.rb:19:in `create'
+  [1m[36mBoard Create (0.2ms)[0m  [1m[32mINSERT INTO "boards" ("player1_id", "player2_id", "board_name", "winner", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["player1_id", 81], ["player2_id", nil], ["board_name", "Nombre_del_Tablero"], ["winner", nil], ["created_at", "2023-10-15 21:02:26.658913"], ["updated_at", "2023-10-15 21:02:26.658913"]]
+  ↳ app/controllers/boards_controller.rb:19:in `create'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/boards_controller.rb:19:in `create'
+Completed 200 OK in 11ms (Views: 0.2ms | ActiveRecord: 3.5ms | Allocations: 9403)
+
+
+Started POST "/boards" for ::1 at 2023-10-15 18:02:57 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"81dd2e65-bc07-488a-ace0-f3d9676ab845"}}
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "5424bf74-4a3d-433e-b109-57f32ff86245"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "81dd2e65-bc07-488a-ace0-f3d9676ab845"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+  [1m[36mBoard Create (0.2ms)[0m  [1m[32mINSERT INTO "boards" ("player1_id", "player2_id", "board_name", "winner", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["player1_id", 81], ["player2_id", nil], ["board_name", "Nombre_del_Tablero"], ["winner", nil], ["created_at", "2023-10-15 21:02:57.620919"], ["updated_at", "2023-10-15 21:02:57.620919"]]
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+Completed 200 OK in 14ms (Views: 0.2ms | ActiveRecord: 5.0ms | Allocations: 9374)
+
+
+Started POST "/boards" for ::1 at 2023-10-15 18:03:37 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"81dd2e65-bc07-488a-ace0-f3d9676ab845"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "5424bf74-4a3d-433e-b109-57f32ff86245"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "81dd2e65-bc07-488a-ace0-f3d9676ab845"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 9ms (ActiveRecord: 3.8ms | Allocations: 7254)
+
+
+  
+ActiveRecord::AssociationTypeMismatch (Player(#74380) expected, got "81dd2e65-bc07-488a-ace0-f3d9676ab845" which is an instance of String(#2060)):
+  
+app/controllers/boards_controller.rb:18:in `create'
+Started POST "/boards" for ::1 at 2023-10-15 18:04:59 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "id"=>"81dd2e65-bc07-488a-ace0-f3d9676ab845"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "5424bf74-4a3d-433e-b109-57f32ff86245"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "81dd2e65-bc07-488a-ace0-f3d9676ab845"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+  [1m[36mBoard Create (0.2ms)[0m  [1m[32mINSERT INTO "boards" ("player1_id", "player2_id", "board_name", "winner", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["player1_id", 81], ["player2_id", nil], ["board_name", "Nombre_del_Tablero"], ["winner", nil], ["created_at", "2023-10-15 21:04:59.230987"], ["updated_at", "2023-10-15 21:04:59.230987"]]
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+Completed 200 OK in 10ms (Views: 0.2ms | ActiveRecord: 3.6ms | Allocations: 9405)
+
+
+Started POST "/boards" for ::1 at 2023-10-15 18:06:08 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"81dd2e65-bc07-488a-ace0-f3d9676ab845"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "5424bf74-4a3d-433e-b109-57f32ff86245"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "81dd2e65-bc07-488a-ace0-f3d9676ab845"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 11ms (ActiveRecord: 3.9ms | Allocations: 7248)
+
+
+  
+ActiveRecord::AssociationTypeMismatch (Player(#90160) expected, got "81dd2e65-bc07-488a-ace0-f3d9676ab845" which is an instance of String(#2060)):
+  
+app/controllers/boards_controller.rb:18:in `create'
+Started POST "/boards" for ::1 at 2023-10-15 18:06:24 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"81dd2e65-bc07-488a-ace0-f3d9676ab845"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "5424bf74-4a3d-433e-b109-57f32ff86245"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "81dd2e65-bc07-488a-ace0-f3d9676ab845"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 8ms (ActiveRecord: 3.9ms | Allocations: 7319)
+
+
+  
+ActiveRecord::AssociationTypeMismatch (Player(#98040) expected, got "81dd2e65-bc07-488a-ace0-f3d9676ab845" which is an instance of String(#2060)):
+  
+app/controllers/boards_controller.rb:18:in `create'
+Started POST "/boards" for ::1 at 2023-10-15 18:06:33 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"81dd2e65-bc07-488a-ace0-f3d9676ab845"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "5424bf74-4a3d-433e-b109-57f32ff86245"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "81dd2e65-bc07-488a-ace0-f3d9676ab845"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+  [1m[36mBoard Create (0.2ms)[0m  [1m[32mINSERT INTO "boards" ("player1_id", "player2_id", "board_name", "winner", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["player1_id", 81], ["player2_id", nil], ["board_name", "Nombre_del_Tablero"], ["winner", nil], ["created_at", "2023-10-15 21:06:33.566322"], ["updated_at", "2023-10-15 21:06:33.566322"]]
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+Completed 200 OK in 9ms (Views: 0.2ms | ActiveRecord: 3.4ms | Allocations: 9405)
+
+
+Started POST "/boards" for ::1 at 2023-10-15 18:14:42 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"81dd2e65-bc07-488a-ace0-f3d9676ab845"}}
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "5424bf74-4a3d-433e-b109-57f32ff86245"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "81dd2e65-bc07-488a-ace0-f3d9676ab845"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+Completed 422 Unprocessable Entity in 16ms (Views: 0.1ms | ActiveRecord: 3.1ms | Allocations: 12253)
+
+
+Started GET "/boards" for ::1 at 2023-10-15 18:14:55 -0300
+Processing by BoardsController#index as */*
+  Parameters: {"board"=>{}}
+  [1m[36mBoard Load (0.4ms)[0m  [1m[34mSELECT "boards".* FROM "boards"[0m
+  ↳ app/controllers/boards_controller.rb:7:in `index'
+Completed 200 OK in 2ms (Views: 1.7ms | ActiveRecord: 0.4ms | Allocations: 1379)
+
+
+Started POST "/boards" for ::1 at 2023-10-15 18:15:23 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"81dd2e65-bc07-488a-ace0-f3d9676ab845"}}
+  [1m[36mPlayer Load (0.3ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "5424bf74-4a3d-433e-b109-57f32ff86245"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "81dd2e65-bc07-488a-ace0-f3d9676ab845"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 13ms (ActiveRecord: 5.3ms | Allocations: 7268)
+
+
+  
+ActiveRecord::AssociationTypeMismatch (Player(#121920) expected, got "81dd2e65-bc07-488a-ace0-f3d9676ab845" which is an instance of String(#2060)):
+  
+app/controllers/boards_controller.rb:18:in `create'
+Started POST "/boards" for ::1 at 2023-10-15 18:15:37 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"81dd2e65-bc07-488a-ace0-f3d9676ab845"}}
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "5424bf74-4a3d-433e-b109-57f32ff86245"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "81dd2e65-bc07-488a-ace0-f3d9676ab845"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+  [1m[36mBoard Create (0.3ms)[0m  [1m[32mINSERT INTO "boards" ("player1_id", "player2_id", "board_name", "winner", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["player1_id", 81], ["player2_id", nil], ["board_name", "Nombre_del_Tablero"], ["winner", nil], ["created_at", "2023-10-15 21:15:37.931588"], ["updated_at", "2023-10-15 21:15:37.931588"]]
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+Completed 200 OK in 11ms (Views: 0.2ms | ActiveRecord: 4.8ms | Allocations: 9403)
+
+
+Started POST "/boards" for ::1 at 2023-10-15 18:15:51 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"81dd2e65-bc07-488a-ace0-f3d9676ab845"}}
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "5424bf74-4a3d-433e-b109-57f32ff86245"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.8ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE (81dd2e65-bc07-488a-ace0-f3d9676ab845) LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+Completed 500 Internal Server Error in 9ms (ActiveRecord: 3.2ms | Allocations: 5310)
+
+
+  
+ActiveRecord::StatementInvalid (PG::SyntaxError: ERROR:  trailing junk after numeric literal at or near "81d"
+LINE 1: SELECT "players".* FROM "players" WHERE (81dd2e65-bc07-488a-...
+                                                 ^
+):
+  
+app/controllers/boards_controller.rb:16:in `create'
+Started POST "/boards" for ::1 at 2023-10-15 18:16:02 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"81dd2e65-bc07-488a-ace0-f3d9676ab845"}}
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "5424bf74-4a3d-433e-b109-57f32ff86245"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "81dd2e65-bc07-488a-ace0-f3d9676ab845"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+  [1m[36mBoard Create (0.2ms)[0m  [1m[32mINSERT INTO "boards" ("player1_id", "player2_id", "board_name", "winner", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["player1_id", 81], ["player2_id", nil], ["board_name", "Nombre_del_Tablero"], ["winner", nil], ["created_at", "2023-10-15 21:16:02.448902"], ["updated_at", "2023-10-15 21:16:02.448902"]]
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+Completed 200 OK in 9ms (Views: 0.2ms | ActiveRecord: 3.1ms | Allocations: 9406)
+
+
+Started POST "/boards" for ::1 at 2023-10-15 18:16:45 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"81dd2e65-bc07-488a-ace0-f3d9676ab845"}}
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "5424bf74-4a3d-433e-b109-57f32ff86245"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "81dd2e65-bc07-488a-ace0-f3d9676ab845"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+Completed 422 Unprocessable Entity in 13ms (Views: 0.1ms | ActiveRecord: 4.2ms | Allocations: 9785)
+
+
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (5007.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "card_game_backend_development"[0m
+Started POST "/players" for ::1 at 2023-10-15 18:18:08 -0300
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PlayersController#create as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]", "name"=>"lucas", "lastname"=>"miranda", "nickname"=>"enkinaurio"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."nickname" = $1 LIMIT $2[0m  [["nickname", "enkinaurio"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."email" = $1 LIMIT $2[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+Completed 422 Unprocessable Entity in 10ms (Views: 0.2ms | ActiveRecord: 3.0ms | Allocations: 11735)
+
+
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (13.2ms)[0m  [1m[35mDROP DATABASE IF EXISTS "card_game_backend_development"[0m
+  [1m[35m (12.9ms)[0m  [1m[35mDROP DATABASE IF EXISTS "card_game_backend_test"[0m
+  [1m[35m (21.5ms)[0m  [1m[35mCREATE DATABASE "card_game_backend_development" ENCODING = 'unicode'[0m
+  [1m[35m (20.7ms)[0m  [1m[35mCREATE DATABASE "card_game_backend_test" ENCODING = 'unicode'[0m
+  [1m[35m (2.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3379173675217033995)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateBoards (20220522162722)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(3379173675217033995)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (46.3ms)[0m  [1m[35mDROP DATABASE IF EXISTS "card_game_backend_development"[0m
+  [1m[35m (12.4ms)[0m  [1m[35mDROP DATABASE IF EXISTS "card_game_backend_test"[0m
+  [1m[35m (21.0ms)[0m  [1m[35mCREATE DATABASE "card_game_backend_development" ENCODING = 'unicode'[0m
+  [1m[35m (20.5ms)[0m  [1m[35mCREATE DATABASE "card_game_backend_test" ENCODING = 'unicode'[0m
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (2.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3379173675217033995)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateBoards (20220522162722)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE TABLE "boards" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "player1_id" uuid NOT NULL, "player2_id" uuid, "board_name" character varying, "winner" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "boards" ADD CONSTRAINT "fk_rails_5805c510bf"
+FOREIGN KEY ("player1_id")
+  REFERENCES "players" ("id")
+[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(3379173675217033995)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (46.9ms)[0m  [1m[35mDROP DATABASE IF EXISTS "card_game_backend_development"[0m
+  [1m[35m (12.7ms)[0m  [1m[35mDROP DATABASE IF EXISTS "card_game_backend_test"[0m
+  [1m[35m (20.0ms)[0m  [1m[35mCREATE DATABASE "card_game_backend_development" ENCODING = 'unicode'[0m
+  [1m[35m (20.8ms)[0m  [1m[35mCREATE DATABASE "card_game_backend_test" ENCODING = 'unicode'[0m
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(3379173675217033995)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateBoards (20220522162722)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE TABLE "boards" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "player1_id" uuid NOT NULL, "player2_id" uuid, "board_name" character varying, "winner" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20220522162722"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateActiveStorageTables (20231013182339)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "active_storage_blobs" ("id" bigserial primary key, "key" character varying NOT NULL, "filename" character varying NOT NULL, "content_type" character varying, "metadata" text, "service_name" character varying NOT NULL, "byte_size" bigint NOT NULL, "checksum" character varying, "created_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_blobs_on_key" ON "active_storage_blobs" ("key")[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "active_storage_attachments" ("id" bigserial primary key, "name" character varying NOT NULL, "record_type" character varying NOT NULL, "record_id" bigint NOT NULL, "blob_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_c3b3935057"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+)[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE INDEX "index_active_storage_attachments_on_blob_id" ON "active_storage_attachments" ("blob_id")[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_attachments_uniqueness" ON "active_storage_attachments" ("record_type", "record_id", "name", "blob_id")[0m
+  [1m[35m (3.1ms)[0m  [1m[35mCREATE TABLE "active_storage_variant_records" ("id" bigserial primary key, "blob_id" bigint NOT NULL, "variation_digest" character varying NOT NULL, CONSTRAINT "fk_rails_993965df05"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_variant_records_uniqueness" ON "active_storage_variant_records" ("blob_id", "variation_digest")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20231013182339"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateImages (20231013183935)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "images" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20231013183935"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreatePlayers (20231013183954)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE TABLE "players" ("id" uuid DEFAULT gen_random_uuid() NOT NULL PRIMARY KEY, "name" character varying, "lastname" character varying, "password" character varying, "nickname" character varying, "email" character varying, "token" character varying, "image_id" uuid, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "players" ADD CONSTRAINT "fk_rails_884bb50f59"
+FOREIGN KEY ("image_id")
+  REFERENCES "images" ("id")
+ ON DELETE SET NULL[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20231013183954"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddPlayerToImages (20231013184330)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "images" ADD "player_id" uuid NOT NULL[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "images" ADD CONSTRAINT "fk_rails_e73d825546"
+FOREIGN KEY ("player_id")
+  REFERENCES "players" ("id")
+ ON DELETE CASCADE[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20231013184330"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddIndexPlayerToBoards (20231015212122)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "boards" ADD CONSTRAINT "fk_rails_5805c510bf"
+FOREIGN KEY ("player1_id")
+  REFERENCES "players" ("id")
+[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "boards" ADD CONSTRAINT "fk_rails_2c25b5cc35"
+FOREIGN KEY ("player2_id")
+  REFERENCES "players" ("id")
+[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20231015212122"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-10-15 21:21:45.037421"], ["updated_at", "2023-10-15 21:21:45.037421"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(3379173675217033995)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/players" for ::1 at 2023-10-15 18:21:57 -0300
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PlayersController#create as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]", "name"=>"lucas", "lastname"=>"miranda", "nickname"=>"enkinaurio"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."nickname" = $1 LIMIT $2[0m  [["nickname", "enkinaurio"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."email" = $1 LIMIT $2[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Create (0.4ms)[0m  [1m[32mINSERT INTO "players" ("name", "lastname", "password", "nickname", "email", "token", "image_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "lucas"], ["lastname", "miranda"], ["password", "123456#"], ["nickname", "enkinaurio"], ["email", "lucasdavidmiranda8@hotmail.com"], ["token", "20eb3fd2-9eca-4d97-bd8f-c4f8f95402c5"], ["image_id", nil], ["created_at", "2023-10-15 21:21:57.355023"], ["updated_at", "2023-10-15 21:21:57.355023"]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+Completed 200 OK in 40ms (Views: 0.3ms | ActiveRecord: 3.6ms | Allocations: 12946)
+
+
+Started POST "/player/login" for ::1 at 2023-10-15 18:22:02 -0300
+Processing by PlayersController#login as */*
+  Parameters: {"player"=>{"email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mPlayer Load (0.3ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE ((email = 'lucasdavidmiranda8@hotmail.com' OR nickname = NULL) AND password = '123456#') LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:18:in `login'
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.3ms | Allocations: 919)
+
+
+Started GET "/boards" for ::1 at 2023-10-15 18:22:15 -0300
+Processing by BoardsController#index as */*
+  Parameters: {"board"=>{}}
+  [1m[36mBoard Load (0.2ms)[0m  [1m[34mSELECT "boards".* FROM "boards"[0m
+  ↳ app/controllers/boards_controller.rb:7:in `index'
+Completed 200 OK in 2ms (Views: 1.1ms | ActiveRecord: 0.9ms | Allocations: 901)
+
+
+Started POST "/boards" for ::1 at 2023-10-15 18:22:22 -0300
+Processing by BoardsController#create as */*
+  Parameters: {"board"=>{"board_name"=>"Nombre_del_Tablero", "player1_id"=>"d8a82e18-67b7-466e-8c44-4e3c0130eef7"}}
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."token" = $1 LIMIT $2[0m  [["token", "20eb3fd2-9eca-4d97-bd8f-c4f8f95402c5"], ["LIMIT", 1]]
+  ↳ app/helpers/session_helper.rb:4:in `check_token'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "d8a82e18-67b7-466e-8c44-4e3c0130eef7"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:16:in `create'
+  [1m[36mCACHE Player Load (0.0ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "d8a82e18-67b7-466e-8c44-4e3c0130eef7"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+  [1m[36mBoard Create (0.5ms)[0m  [1m[32mINSERT INTO "boards" ("player1_id", "player2_id", "board_name", "winner", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["player1_id", "d8a82e18-67b7-466e-8c44-4e3c0130eef7"], ["player2_id", nil], ["board_name", "Nombre_del_Tablero"], ["winner", nil], ["created_at", "2023-10-15 21:22:22.455208"], ["updated_at", "2023-10-15 21:22:22.455208"]]
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/boards_controller.rb:20:in `create'
+Completed 200 OK in 11ms (Views: 0.2ms | ActiveRecord: 2.5ms | Allocations: 8794)
+
+
+Started PUT "/boards/ecb4896c-f747-492f-b7f7-48346eef2b41" for ::1 at 2023-10-15 18:22:50 -0300
+Processing by BoardsController#update as */*
+  Parameters: {"board"=>{"board_name"=>"Nuevo_Nombre_del_Tablero", "winner"=>1}, "id"=>"ecb4896c-f747-492f-b7f7-48346eef2b41"}
+  [1m[36mBoard Load (0.2ms)[0m  [1m[34mSELECT "boards".* FROM "boards" WHERE "boards"."id" = $1 LIMIT $2[0m  [["id", "ecb4896c-f747-492f-b7f7-48346eef2b41"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:34:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/boards_controller.rb:35:in `update'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "d8a82e18-67b7-466e-8c44-4e3c0130eef7"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:35:in `update'
+  [1m[36mBoard Update (0.2ms)[0m  [1m[33mUPDATE "boards" SET "board_name" = $1, "winner" = $2, "updated_at" = $3 WHERE "boards"."id" = $4[0m  [["board_name", "Nuevo_Nombre_del_Tablero"], ["winner", 1], ["updated_at", "2023-10-15 21:22:50.544438"], ["id", "ecb4896c-f747-492f-b7f7-48346eef2b41"]]
+  ↳ app/controllers/boards_controller.rb:35:in `update'
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/boards_controller.rb:35:in `update'
+Completed 200 OK in 7ms (Views: 0.2ms | ActiveRecord: 1.4ms | Allocations: 3905)
+
+
+Started PUT "/boards/ecb4896c-f747-492f-b7f7-48346eef2b41" for ::1 at 2023-10-15 18:22:58 -0300
+Processing by BoardsController#update as */*
+  Parameters: {"board"=>{"board_name"=>"Nuevo_Nombre_del_Tablero", "winner"=>2}, "id"=>"ecb4896c-f747-492f-b7f7-48346eef2b41"}
+  [1m[36mBoard Load (0.2ms)[0m  [1m[34mSELECT "boards".* FROM "boards" WHERE "boards"."id" = $1 LIMIT $2[0m  [["id", "ecb4896c-f747-492f-b7f7-48346eef2b41"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:34:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/boards_controller.rb:35:in `update'
+  [1m[36mPlayer Load (0.2ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "d8a82e18-67b7-466e-8c44-4e3c0130eef7"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:35:in `update'
+  [1m[36mBoard Update (0.2ms)[0m  [1m[33mUPDATE "boards" SET "winner" = $1, "updated_at" = $2 WHERE "boards"."id" = $3[0m  [["winner", 2], ["updated_at", "2023-10-15 21:22:58.910852"], ["id", "ecb4896c-f747-492f-b7f7-48346eef2b41"]]
+  ↳ app/controllers/boards_controller.rb:35:in `update'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/boards_controller.rb:35:in `update'
+Completed 200 OK in 6ms (Views: 0.3ms | ActiveRecord: 1.3ms | Allocations: 3575)
+
+
+Started PUT "/boards/ecb4896c-f747-492f-b7f7-48346eef2b41" for ::1 at 2023-10-15 18:23:02 -0300
+Processing by BoardsController#update as */*
+  Parameters: {"board"=>{"board_name"=>"Nuevo_Nombre_del_Tablero", "winner"=>1}, "id"=>"ecb4896c-f747-492f-b7f7-48346eef2b41"}
+  [1m[36mBoard Load (0.2ms)[0m  [1m[34mSELECT "boards".* FROM "boards" WHERE "boards"."id" = $1 LIMIT $2[0m  [["id", "ecb4896c-f747-492f-b7f7-48346eef2b41"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:34:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/boards_controller.rb:35:in `update'
+  [1m[36mPlayer Load (0.1ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."id" = $1 LIMIT $2[0m  [["id", "d8a82e18-67b7-466e-8c44-4e3c0130eef7"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:35:in `update'
+  [1m[36mBoard Update (0.2ms)[0m  [1m[33mUPDATE "boards" SET "winner" = $1, "updated_at" = $2 WHERE "boards"."id" = $3[0m  [["winner", 1], ["updated_at", "2023-10-15 21:23:02.690178"], ["id", "ecb4896c-f747-492f-b7f7-48346eef2b41"]]
+  ↳ app/controllers/boards_controller.rb:35:in `update'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/boards_controller.rb:35:in `update'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 1.2ms | Allocations: 3569)
+
+
+Started GET "/boards" for ::1 at 2023-10-15 18:23:12 -0300
+Processing by BoardsController#index as */*
+  Parameters: {"board"=>{}}
+  [1m[36mBoard Load (0.2ms)[0m  [1m[34mSELECT "boards".* FROM "boards"[0m
+  ↳ app/controllers/boards_controller.rb:7:in `index'
+Completed 200 OK in 1ms (Views: 1.2ms | ActiveRecord: 0.2ms | Allocations: 838)
+
+
+Started GET "/boards/ecb4896c-f747-492f-b7f7-48346eef2b41" for ::1 at 2023-10-15 18:23:27 -0300
+Processing by BoardsController#show as */*
+  Parameters: {"id"=>"ecb4896c-f747-492f-b7f7-48346eef2b41", "board"=>{}}
+  [1m[36mBoard Load (0.2ms)[0m  [1m[34mSELECT "boards".* FROM "boards" WHERE "boards"."id" = $1 LIMIT $2[0m  [["id", "ecb4896c-f747-492f-b7f7-48346eef2b41"], ["LIMIT", 1]]
+  ↳ app/controllers/boards_controller.rb:11:in `show'
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.2ms | Allocations: 688)
+
+
