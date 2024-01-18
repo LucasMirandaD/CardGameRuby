@@ -14,7 +14,6 @@ class BoardsController < ApplicationController
 
   def create
     player1 = Player.find(params[:board][:player1_id])
-    puts "ESTE ES EL ID: #{ player1.id }"
     board = Board.new(board_name: params[:board][:board_name], player1_id: player1.id)
 
     if board.save
@@ -27,7 +26,7 @@ class BoardsController < ApplicationController
   def destroy
     board = Board.find(params[:id])
     board.destroy
-    render status: 200, json: { message: "Se destruyo el tablero #{params[:id]}" }
+    render status: ok, json: { message: "Se destruyo el tablero #{params[:id]}" }
   end
 
   def update
@@ -37,6 +36,27 @@ class BoardsController < ApplicationController
     else
       render json: { message: board.errors.details }, status: :unprocessable_entity
     end
+  end
+
+  def join_board
+    player2 = Player.find(params[:board][:player2_id])
+    board = Board.find(params[:board][:board_id])
+
+    if board.player2.present?
+      render json: { message: 'La partida esta completa' }, status: :unprocessable_entity
+    else
+      board.player2 = player2
+      render status: :ok
+    end
+  end
+
+  def take_card
+  end
+
+  def throw_card
+  end
+
+  def deal_cards
   end
 
   private
