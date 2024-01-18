@@ -3543,3 +3543,154 @@ Processing by BoardsController#show as */*
 Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.2ms | Allocations: 688)
 
 
+Started POST "/players/lucasMiranda/login" for ::1 at 2023-11-05 13:53:02 -0300
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActionController::RoutingError (No route matches [POST] "/players/lucasMiranda/login"):
+  
+Started POST "/players" for ::1 at 2023-11-05 13:53:17 -0300
+Processing by PlayersController#create as HTML
+  Parameters: {"nickname"=>"lucasMiranda", "name"=>"lucasMiranda", "password"=>"[FILTERED]", "player"=>{"name"=>"lucasMiranda", "password"=>"[FILTERED]", "nickname"=>"lucasMiranda"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."nickname" = $1 LIMIT $2[0m  [["nickname", "lucasMiranda"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."email" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+Completed 422 Unprocessable Entity in 9ms (Views: 0.2ms | ActiveRecord: 4.0ms | Allocations: 10772)
+
+
+Started POST "/players" for ::1 at 2023-11-05 13:55:54 -0300
+Processing by PlayersController#create as HTML
+  Parameters: {"nickname"=>"lucasMiranda", "name"=>"lucasMiranda", "password"=>"[FILTERED]", "player"=>{"name"=>"lucasMiranda", "password"=>"[FILTERED]", "nickname"=>"lucasMiranda"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."nickname" = $1 LIMIT $2[0m  [["nickname", "lucasMiranda"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."email" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+Completed 422 Unprocessable Entity in 3ms (Views: 0.1ms | ActiveRecord: 0.4ms | Allocations: 3004)
+
+
+Started POST "/players" for ::1 at 2023-11-05 13:55:55 -0300
+Processing by PlayersController#create as HTML
+  Parameters: {"nickname"=>"lucasMiranda", "name"=>"lucasMiranda", "password"=>"[FILTERED]", "player"=>{"name"=>"lucasMiranda", "password"=>"[FILTERED]", "nickname"=>"lucasMiranda"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."nickname" = $1 LIMIT $2[0m  [["nickname", "lucasMiranda"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."email" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+Completed 422 Unprocessable Entity in 4ms (Views: 0.1ms | ActiveRecord: 0.5ms | Allocations: 3005)
+
+
+Started POST "/players" for ::1 at 2023-11-05 14:02:41 -0300
+Processing by PlayersController#create as HTML
+  Parameters: {"nickname"=>"lucasMiranda", "name"=>"lucasMiranda", "email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]", "player"=>{"name"=>"lucasMiranda", "password"=>"[FILTERED]", "nickname"=>"lucasMiranda", "email"=>"lucasdavidmiranda8@hotmail.com"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."nickname" = $1 LIMIT $2[0m  [["nickname", "lucasMiranda"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."email" = $1 LIMIT $2[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+Completed 422 Unprocessable Entity in 16ms (Views: 0.2ms | ActiveRecord: 3.1ms | Allocations: 6035)
+
+
+Started POST "/players" for ::1 at 2023-11-05 14:18:25 -0300
+Processing by PlayersController#create as HTML
+  Parameters: {"nickname"=>"lucasMiranda", "name"=>"lucasMiranda", "email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]", "player"=>{"name"=>"lucasMiranda", "password"=>"[FILTERED]", "nickname"=>"lucasMiranda", "email"=>"lucasdavidmiranda8@hotmail.com"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."nickname" = $1 LIMIT $2[0m  [["nickname", "lucasMiranda"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."email" = $1 LIMIT $2[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+Completed 422 Unprocessable Entity in 18ms (Views: 0.1ms | ActiveRecord: 4.4ms | Allocations: 5943)
+
+
+Started POST "/players" for ::1 at 2023-11-05 14:18:46 -0300
+Processing by PlayersController#create as HTML
+  Parameters: {"nickname"=>"lucasMiranda", "name"=>"lucasMiranda", "email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]", "player"=>{"name"=>"lucasMiranda", "password"=>"[FILTERED]", "nickname"=>"lucasMiranda", "email"=>"lucasdavidmiranda8@hotmail.com"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."nickname" = $1 LIMIT $2[0m  [["nickname", "lucasMiranda"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."email" = $1 LIMIT $2[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+Completed 422 Unprocessable Entity in 4ms (Views: 0.1ms | ActiveRecord: 0.6ms | Allocations: 3018)
+
+
+Started POST "/players" for ::1 at 2023-11-05 14:18:47 -0300
+Processing by PlayersController#create as HTML
+  Parameters: {"nickname"=>"lucasMiranda", "name"=>"lucasMiranda", "email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]", "player"=>{"name"=>"lucasMiranda", "password"=>"[FILTERED]", "nickname"=>"lucasMiranda", "email"=>"lucasdavidmiranda8@hotmail.com"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."nickname" = $1 LIMIT $2[0m  [["nickname", "lucasMiranda"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."email" = $1 LIMIT $2[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+Completed 422 Unprocessable Entity in 4ms (Views: 0.1ms | ActiveRecord: 0.6ms | Allocations: 3018)
+
+
+Started POST "/players" for ::1 at 2023-11-05 14:18:48 -0300
+Processing by PlayersController#create as HTML
+  Parameters: {"nickname"=>"lucasMiranda", "name"=>"lucasMiranda", "email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]", "player"=>{"name"=>"lucasMiranda", "password"=>"[FILTERED]", "nickname"=>"lucasMiranda", "email"=>"lucasdavidmiranda8@hotmail.com"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."nickname" = $1 LIMIT $2[0m  [["nickname", "lucasMiranda"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."email" = $1 LIMIT $2[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+Completed 422 Unprocessable Entity in 4ms (Views: 0.1ms | ActiveRecord: 0.6ms | Allocations: 3018)
+
+
+Started POST "/players" for ::1 at 2023-11-05 14:20:14 -0300
+Processing by PlayersController#create as HTML
+  Parameters: {"nickname"=>"lucasMiranda", "name"=>"lucasMiranda", "email"=>"lucasdavidmiranda8@hotmail.com", "password"=>"[FILTERED]", "player"=>{"name"=>"lucasMiranda", "password"=>"[FILTERED]", "nickname"=>"lucasMiranda", "email"=>"lucasdavidmiranda8@hotmail.com"}}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."nickname" = $1 LIMIT $2[0m  [["nickname", "lucasMiranda"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mPlayer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "players" WHERE "players"."email" = $1 LIMIT $2[0m  [["email", "lucasdavidmiranda8@hotmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/players_controller.rb:34:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/players_controller.rb:34:in `create'
+Completed 422 Unprocessable Entity in 4ms (Views: 0.1ms | ActiveRecord: 0.7ms | Allocations: 3018)
+
+
+Started GET "/profile/info" for ::1 at 2023-11-05 17:01:39 -0300
+  
+ActionController::RoutingError (No route matches [GET] "/profile/info"):
+  
+Started GET "/profile/info" for ::1 at 2023-11-05 17:01:39 -0300
+  
+ActionController::RoutingError (No route matches [GET] "/profile/info"):
+  
+Started GET "/events/discover?country=Argentina&province=Mendoza&city=" for ::1 at 2023-11-05 17:01:41 -0300
+  
+ActionController::RoutingError (No route matches [GET] "/events/discover"):
+  
+Started GET "/events/discover?country=Argentina&province=Mendoza&city=" for ::1 at 2023-11-05 17:01:41 -0300
+  
+ActionController::RoutingError (No route matches [GET] "/events/discover"):
+  
+Started POST "/users/sign_in" for ::1 at 2023-11-05 17:01:56 -0300
+  
+ActionController::RoutingError (No route matches [POST] "/users/sign_in"):
+  
