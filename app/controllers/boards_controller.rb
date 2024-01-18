@@ -14,6 +14,7 @@ class BoardsController < ApplicationController
 
   def create
     player1 = Player.find(params[:board][:player1_id])
+    puts "ESTE ES EL ID: #{ player1.id }"
     board = Board.new(board_name: params[:board][:board_name], player1_id: player1.id)
 
     if board.save
