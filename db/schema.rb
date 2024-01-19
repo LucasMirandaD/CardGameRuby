@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_15_212122) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_18_233513) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,6 +51,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_15_212122) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "cards", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "player_id"
+    t.string "card"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["player_id"], name: "index_cards_on_player_id"
+  end
+
   create_table "images", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -73,6 +81,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_15_212122) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "boards", "players", column: "player1_id"
   add_foreign_key "boards", "players", column: "player2_id"
+  add_foreign_key "cards", "players"
   add_foreign_key "images", "players", on_delete: :cascade
   add_foreign_key "players", "images", on_delete: :nullify
 end
