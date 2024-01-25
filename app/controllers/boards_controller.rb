@@ -2,7 +2,6 @@ class BoardsController < ApplicationController
   include SessionHelper
   include CardEnum
   before_action :check_token, only: %i[create join save_result] # puedo recuperar el jugador
-  before_action :initialize_deck, only: [:create, :deal_cards]
 
   def index
     board = Board.all
@@ -11,12 +10,14 @@ class BoardsController < ApplicationController
 
   def show
     board = Board.find(params[:id])
-    render json: { board: board }, status: :ok
+    render json: { board: board, deck: board.deck }, status: :ok
   end
 
   def create
     @player1 = Player.find(params[:board][:player1_id])
-    board = Board.new(board_name: params[:board][:board_name], player1_id: @player1.id)
+    board = Board.new(board_name: params[:board][:board_name],
+                      player1_id: @player1.id)
+    board.deck = Deck.create(content: CardEnum::CARD_ENUM_VALUES.dup.shuffle)
 
     if board.save
       render json: { board: board }, status: :ok
@@ -53,11 +54,10 @@ class BoardsController < ApplicationController
   end
 
   def take_card
-    # cambiar para que el mazo sea de la partida
-    # declarar cards y agregar el modelo card
+    board = Board.find(params[:board][:id])
     player = Player.find(params[:board][:player_id])
-    player.cards.create(deck.shift) # saca el primer elemento
-    render status: :ok
+    player.deck.content << board.deck.shift # saca el primer elemento
+    render json: { message: player.deck }, status: :ok
   end
 
   def throw_card
@@ -75,10 +75,11 @@ class BoardsController < ApplicationController
   end
 
   def deal_cards
+    board = Board.find(params[:board_id])
     cards_per_player = 7 # podria ser ingresado por los usuarios
 
-    player1_cards = deck.slice!(0, cards_per_player)
-    player2_cards = deck.slice!(0, cards_per_player)
+    player1_cards = board.deck.slice!(0, cards_per_player)
+    player2_cards = board.deck.slice!(0, cards_per_player)
 
     assign_cards_to_player(player1, player1_cards)
     assign_cards_to_player(player2, player2_cards)
@@ -90,10 +91,6 @@ class BoardsController < ApplicationController
 
   def board_params
     params.require(:board).permit(:winner, :player1, :player2, :board_name)
-  end
-
-  def initialize_deck
-    @deck = CardEnum::CARD_ENUM_VALUES.dup.shuffle # Baraja todas las cartas y las guarda en un mazo
   end
 
   def assign_cards_to_player(player, player_cards)

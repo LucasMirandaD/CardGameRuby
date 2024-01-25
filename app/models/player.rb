@@ -4,6 +4,7 @@ class Player < ApplicationRecord
   # ASSOCIATIONS
   ##############################################################################
   has_many :boards
+  has_one :deck
   has_one :image
   accepts_nested_attributes_for :image
 
