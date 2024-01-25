@@ -7,12 +7,12 @@ Rails.application.routes.draw do
    end
 
    resources :boards, only: %i[index show create update destroy] do
-     post :join_board
    end
 
    resource :board, only: %i[] do
      post :deal_cards
      post :take_card
      post :throw_card
+     post :join_board
    end
  end

@@ -57,10 +57,4 @@ module CardEnum
     '/images/cards/special/cambioColor.png',
     '/images/cards/special/chupate4.png'
   ].freeze
-
-  included do
-    def self.cards
-      CARD_ENUM_VALUES
-    end
-  end
 end

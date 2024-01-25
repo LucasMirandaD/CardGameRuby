@@ -14,12 +14,14 @@ class BoardsController < ApplicationController
   end
 
   def create
-    @player1 = Player.find(params[:board][:player1_id])
+    player1 = Player.find(params[:board][:player1_id])
     deck = Deck.create(content: CardEnum::CARD_ENUM_VALUES.dup.shuffle)
     board = Board.new(board_name: params[:board][:board_name],
-                      player1_id: @player1.id,
+                      player1_id: player1.id,
                       deck_id: deck.id)
     board.deck = deck
+    player1.deck = Deck.create
+    player1.deck.board_id = board.id
 
     if board.save
       render json: { board: board }, status: :ok
@@ -30,8 +32,12 @@ class BoardsController < ApplicationController
 
   def destroy
     board = Board.find(params[:id])
-    board.destroy
-    render status: ok, json: { message: "Se destruyo el tablero #{params[:id]}" }
+
+    if board.destroy
+      render json: { message: "Se destruyo el tablero #{params[:id]}" }, status: :ok
+    else 
+      render status: :unprocessable_entity
+    end
   end
 
   def update
@@ -45,7 +51,9 @@ class BoardsController < ApplicationController
 
   def join_board
     @player2 = Player.find(params[:board][:player2_id])
-    board = Board.find(params[:board_id])
+    board = Board.find(params[:board][:id])
+    @player2.deck = Deck.create
+    @player2.deck.board_id = board.id
 
     if board.player2.present?
       render json: { message: 'La partida está completa' }, status: :unprocessable_entity
@@ -58,8 +66,14 @@ class BoardsController < ApplicationController
   def take_card
     board = Board.find(params[:board][:id])
     player = Player.find(params[:board][:player_id])
-    player.deck.content << board.deck.shift # saca el primer elemento
-    render json: { message: player.deck }, status: :ok
+    player.deck.content << board.deck.content.shift # saca el primer elemento
+
+    if board.deck.save && player.deck.save
+      render json: { message: "Se entrega una carta a '#{player.name}'" }, status: :ok
+      # render json: { player_deck: player.deck, board_deck: board.deck }, status: :ok
+    else
+      render status: :unprocessable_entity
+    end
   end
 
   def throw_card
@@ -77,27 +91,26 @@ class BoardsController < ApplicationController
   end
 
   def deal_cards
-    board = Board.find(params[:board_id])
+    board = Board.find(params[:board][:id])
     cards_per_player = 7 # podria ser ingresado por los usuarios
 
-    player1_cards = board.deck.slice!(0, cards_per_player)
-    player2_cards = board.deck.slice!(0, cards_per_player)
+    player1 = Player.find(board.player1_id)
+    player2 = Player.find(board.player2_id)
 
-    assign_cards_to_player(player1, player1_cards)
-    assign_cards_to_player(player2, player2_cards)
+    player1.deck.content += board.deck.content.shift(cards_per_player) # += por que son 2 arrays y sino no funciona
+    player2.deck.content += board.deck.content.shift(cards_per_player)
 
-    render status: :ok, json: { message: [player1_cards, player2_cards] }
+    if player1.deck.save && player2.deck.save && board.deck.save
+      # render json: { player1_deck: player1.deck, player2_deck: player2.deck, board_deck: board.deck }, status: :ok
+      render status: :ok, json: { message: 'Las cartas fueron repartidas' }
+    else
+      render status: :unprocessable_entity
+    end
   end
 
   private
 
   def board_params
     params.require(:board).permit(:winner, :player1, :player2, :board_name)
-  end
-
-  def assign_cards_to_player(player, player_cards)
-    player_cards.each do |player_card|
-      player.cards.create(card: player_card)
-    end
   end
 end
