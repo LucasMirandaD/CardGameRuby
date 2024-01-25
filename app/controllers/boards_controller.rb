@@ -15,9 +15,11 @@ class BoardsController < ApplicationController
 
   def create
     @player1 = Player.find(params[:board][:player1_id])
+    deck = Deck.create(content: CardEnum::CARD_ENUM_VALUES.dup.shuffle)
     board = Board.new(board_name: params[:board][:board_name],
-                      player1_id: @player1.id)
-    board.deck = Deck.create(content: CardEnum::CARD_ENUM_VALUES.dup.shuffle)
+                      player1_id: @player1.id,
+                      deck_id: deck.id)
+    board.deck = deck
 
     if board.save
       render json: { board: board }, status: :ok

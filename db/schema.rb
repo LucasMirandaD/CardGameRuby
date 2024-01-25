@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_24_230000) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_25_234540) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,12 +49,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_24_230000) do
     t.integer "winner"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "deck", default: [], null: false, array: true
+    t.uuid "deck_id"
+    t.index ["deck_id"], name: "index_boards_on_deck_id"
   end
 
   create_table "decks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "content", default: [], null: false, array: true
-    t.uuid "board_id", null: false
+    t.uuid "board_id"
     t.uuid "player_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -78,14 +79,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_24_230000) do
     t.uuid "image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "deck_id"
+    t.index ["deck_id"], name: "index_players_on_deck_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "boards", "decks"
   add_foreign_key "boards", "players", column: "player1_id"
   add_foreign_key "boards", "players", column: "player2_id"
   add_foreign_key "decks", "boards"
   add_foreign_key "decks", "players"
   add_foreign_key "images", "players", on_delete: :cascade
+  add_foreign_key "players", "decks"
   add_foreign_key "players", "images", on_delete: :nullify
 end
