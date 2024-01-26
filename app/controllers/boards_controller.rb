@@ -1,7 +1,8 @@
 class BoardsController < ApplicationController
   include SessionHelper
   include CardEnum
-  before_action :check_token, only: %i[create join save_result] # puedo recuperar el jugador
+  before_action :check_token # puedo recuperar el jugador
+  before_action :find_board, :check_winner, only: %i[join_board take_card deal_cards game_over]
 
   def index
     board = Board.all
@@ -35,7 +36,7 @@ class BoardsController < ApplicationController
 
     if board.destroy
       render json: { message: "Se destruyo el tablero #{params[:id]}" }, status: :ok
-    else 
+    else
       render status: :unprocessable_entity
     end
   end
@@ -51,24 +52,22 @@ class BoardsController < ApplicationController
 
   def join_board
     player2 = Player.find(params[:board][:player2_id])
-    board = Board.find(params[:board][:id])
     player2.deck = Deck.create
-    player2.deck.board_id = board.id
+    player2.deck.board_id = @board.id
 
-    if board.player2.present?
+    if @board.player2.present?
       render json: { message: 'La partida está completa' }, status: :unprocessable_entity
     else
-      board.update(player2: player2)
+      @board.update(player2: player2)
       render json: { message: 'Te has unido a la partida exitosamente' }, status: :ok
     end
   end
 
   def take_card
-    board = Board.find(params[:board][:id])
     player = Player.find(params[:board][:player_id])
-    player.deck.content << board.deck.content.shift # saca el primer elemento
+    player.deck.content << @board.deck.content.shift # saca el primer elemento
 
-    if board.deck.save && player.deck.save
+    if @board.deck.save && player.deck.save
       render json: { message: player.deck.content.last }, status: :ok
       # render json: { player_deck: player.deck, board_deck: board.deck }, status: :ok
     else
@@ -78,7 +77,6 @@ class BoardsController < ApplicationController
 
   def throw_card
     player = Player.find(params[:board][:player_id])
-    puts("Player ########################: '#{player.name}'")
     card = params[:board][:card_url]
     thrown_card = player.deck.content.reject! { |element| element == card }
     # delete_if funciona igual que reject! pero no devuelve true o false
@@ -92,16 +90,15 @@ class BoardsController < ApplicationController
   end
 
   def deal_cards
-    board = Board.find(params[:board][:id])
     cards_per_player = 7 # podria ser ingresado por los usuarios
 
-    player1 = Player.find(board.player1_id)
-    player2 = Player.find(board.player2_id)
+    player1 = Player.find(@board.player1_id)
+    player2 = Player.find(@board.player2_id)
 
-    player1.deck.content += board.deck.content.shift(cards_per_player) # += por que son 2 arrays y sino no funciona
-    player2.deck.content += board.deck.content.shift(cards_per_player)
+    player1.deck.content += @board.deck.content.shift(cards_per_player) # += por que son 2 arrays y sino no funciona
+    player2.deck.content += @board.deck.content.shift(cards_per_player)
 
-    if player1.deck.save && player2.deck.save && board.deck.save
+    if player1.deck.save && player2.deck.save && @board.deck.save
       # render json: { player1_deck: player1.deck, player2_deck: player2.deck, board_deck: board.deck }, status: :ok
       render status: :ok, json: { message: [player1.deck.content, player2.deck.content] }
     else
@@ -109,7 +106,26 @@ class BoardsController < ApplicationController
     end
   end
 
+  def game_over
+    winner = Player.find(params[:board][:winner_id])
+    if @board.update(winner: winner)
+      render json: { message: winner }, status: :ok
+    else
+      render status: :unprocessable_entity
+    end
+  end
+
   private
+
+  def find_board
+    @board = Board.find(params[:board][:id])
+  end
+
+  def check_winner
+    return unless @board.winner.nil?
+
+    render json: { message: 'Este juego ya terminó' }
+  end
 
   def board_params
     params.require(:board).permit(:winner, :player1, :player2, :board_name)
