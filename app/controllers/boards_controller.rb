@@ -50,15 +50,15 @@ class BoardsController < ApplicationController
   end
 
   def join_board
-    @player2 = Player.find(params[:board][:player2_id])
+    player2 = Player.find(params[:board][:player2_id])
     board = Board.find(params[:board][:id])
-    @player2.deck = Deck.create
-    @player2.deck.board_id = board.id
+    player2.deck = Deck.create
+    player2.deck.board_id = board.id
 
     if board.player2.present?
       render json: { message: 'La partida está completa' }, status: :unprocessable_entity
     else
-      board.update(player2: @player2)
+      board.update(player2: player2)
       render json: { message: 'Te has unido a la partida exitosamente' }, status: :ok
     end
   end
@@ -69,24 +69,24 @@ class BoardsController < ApplicationController
     player.deck.content << board.deck.content.shift # saca el primer elemento
 
     if board.deck.save && player.deck.save
-      render json: { message: "Se entrega una carta a '#{player.name}'" }, status: :ok
-      # render json: { player_deck: player.deck, board_deck: board.deck }, status: :ok
+      # render json: { message: "Se entrega una carta a '#{player.name}'" }, status: :ok
+      render json: { player_deck: player.deck, board_deck: board.deck }, status: :ok
     else
       render status: :unprocessable_entity
     end
   end
 
   def throw_card
-    player = Player.find(params[:player_id])
-    card_name = params[:card_name]
+    player = Player.find(params[:board][:player_id])
+    puts("Player ########################: '#{player.name}'")
+    card = params[:board][:card_url]
+    thrown_card = player.deck.content.delete_if { |element| element == card }
 
-    if player.cards.exists?(card: card_name)
-      # Encuentra la carta en posesión del jugador y la elimina
-      thrown_card = player.cards.find_by(card: card_name)
-      thrown_card.destroy
-      render json: { message: "La carta '#{card_name}' ha sido lanzada correctamente." }, status: :ok
+    if thrown_card && player.deck.save
+      # render json: { message: "La carta '#{card}' ha sido lanzada correctamente." }, status: :ok
+      render json: { message: "La carta '#{card}' ha sido lanzada correctamente.", cartas: player.deck.content }, status: :ok
     else
-      render json: { message: "El jugador no posee la carta '#{card_name}'." }, status: :unprocessable_entity
+      render json: { message: "El jugador no posee la carta '#{card}'." }, status: :unprocessable_entity
     end
   end
 
