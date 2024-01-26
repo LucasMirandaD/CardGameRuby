@@ -15,11 +15,11 @@ class BoardsController < ApplicationController
 
   def create
     player1 = Player.find(params[:board][:player1_id])
-    deck = Deck.create(content: CardEnum::CARD_ENUM_VALUES.dup.shuffle)
+    board_deck = Deck.create(content: CardEnum::CARD_ENUM_VALUES.dup.shuffle)
     board = Board.new(board_name: params[:board][:board_name],
                       player1_id: player1.id,
-                      deck_id: deck.id)
-    board.deck = deck
+                      deck_id: board_deck.id)
+    board.deck = board_deck
     player1.deck = Deck.create
     player1.deck.board_id = board.id
 
@@ -69,8 +69,8 @@ class BoardsController < ApplicationController
     player.deck.content << board.deck.content.shift # saca el primer elemento
 
     if board.deck.save && player.deck.save
-      # render json: { message: "Se entrega una carta a '#{player.name}'" }, status: :ok
-      render json: { player_deck: player.deck, board_deck: board.deck }, status: :ok
+      render json: { message: player.deck.content.last }, status: :ok
+      # render json: { player_deck: player.deck, board_deck: board.deck }, status: :ok
     else
       render status: :unprocessable_entity
     end
@@ -80,11 +80,12 @@ class BoardsController < ApplicationController
     player = Player.find(params[:board][:player_id])
     puts("Player ########################: '#{player.name}'")
     card = params[:board][:card_url]
-    thrown_card = player.deck.content.delete_if { |element| element == card }
+    thrown_card = player.deck.content.reject! { |element| element == card }
+    # delete_if funciona igual que reject! pero no devuelve true o false
 
     if thrown_card && player.deck.save
-      # render json: { message: "La carta '#{card}' ha sido lanzada correctamente." }, status: :ok
-      render json: { message: "La carta '#{card}' ha sido lanzada correctamente.", cartas: player.deck.content }, status: :ok
+      render json: { message: card }, status: :ok
+      # render json: { message: "La carta '#{card}' ha sido lanzada correctamente.", cartas: player.deck.content }, status: :ok
     else
       render json: { message: "El jugador no posee la carta '#{card}'." }, status: :unprocessable_entity
     end
@@ -102,7 +103,7 @@ class BoardsController < ApplicationController
 
     if player1.deck.save && player2.deck.save && board.deck.save
       # render json: { player1_deck: player1.deck, player2_deck: player2.deck, board_deck: board.deck }, status: :ok
-      render status: :ok, json: { message: 'Las cartas fueron repartidas' }
+      render status: :ok, json: { message: [player1.deck.content, player2.deck.content] }
     else
       render status: :unprocessable_entity
     end
