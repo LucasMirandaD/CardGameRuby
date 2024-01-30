@@ -181,7 +181,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_storage_validations
-  activestorage
+  activestorage (~> 7.0)
   bootsnap
   byebug
   debug

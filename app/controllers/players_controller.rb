@@ -2,7 +2,13 @@ class PlayersController < ApplicationController
   include SessionHelper
   before_action :check_token, except: %i[login create]
 
-  PLAYER_TO_JSON = { include: { image: { methods: :full_url } } }.freeze
+  PLAYER_TO_JSON = {  only: %i[id token],
+                      include: { image: { methods: :full_url } } }.freeze
+
+  PLAYER_CREATE_TO_JSON = { only: %i[id token] }.freeze
+
+  PLAYER_LOGIN_TO_JSON = { only: %i[id],
+                           include: { image: { methods: :url } } }.freeze
 
   def index
     players = Player.all
@@ -22,7 +28,8 @@ class PlayersController < ApplicationController
     if player.present?
       token = player.token if player.token.present?
       response.headers['Authorization'] = "Bearer #{token}"
-      render json: {}, status: :ok
+      # render json: { id: player.id, token: token, image_url: player.image.image_url }, status: :ok
+      render json: { id: player.id, token: token }, status: :ok
     else
       render json: { message: player.errors.details }, status: :unprocessable_entity
     end
@@ -31,8 +38,14 @@ class PlayersController < ApplicationController
   def create
     player = Player.new(player_params)
 
+    # Construir la imagen y asociarla al jugador
+    image = player.build_image
+    image.file.attach(io: File.open(Rails.root.join('public', 'images', 'null_profile.png')), filename: 'null_profile.png', content_type: 'image/png')
+
     if player.save
-      render json: { player: player }, status: :ok
+      token = player.token if player.token.present?
+      response.headers['Authorization'] = "Bearer #{token}"
+      render json: { data: player.to_json(PLAYER_CREATE_TO_JSON), full_image_url: player.image.full_url }, status: :ok
     else
       render json: { message: player.errors.details }, status: :unprocessable_entity
     end
@@ -62,11 +75,12 @@ class PlayersController < ApplicationController
 
     if player.image.present? && params[:image].present?
       player.image.file.purge
-      player.image.file.attach(params[:image])
+      player.image.attach(file: params[:image])
+      byebug
     else
       player.image = Image.new(file: params[:image]) if params[:image].present?
+      byebug
     end
-
     if player.save
       render json: player.as_json(PLAYER_TO_JSON), status: :ok
     else
@@ -77,6 +91,6 @@ class PlayersController < ApplicationController
   private
 
   def player_params
-    params.require(:player).permit(:name, :password, :nickname, :email)
+    params.require(:player).permit(:name, :password, :nickname, :email, :image)
   end
 end
