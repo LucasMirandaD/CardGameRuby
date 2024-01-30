@@ -72,17 +72,14 @@ class PlayersController < ApplicationController
 
   def update_image
     player = Player.find(params[:player_id])
-
-    if player.image.present? && params[:image].present?
-      player.image.file.purge
-      player.image.attach(file: params[:image])
-      byebug
-    else
-      player.image = Image.new(file: params[:image]) if params[:image].present?
-      byebug
+    image_params = params[:image]
+    if player.image.file.present? && params[:image].present?
+      player.image.file.purge # Elimina el archivo adjunto existente
     end
+    player.image.file.attach(io: image_params.tempfile, filename: image_params.original_filename) if image_params.present?
+
     if player.save
-      render json: player.as_json(PLAYER_TO_JSON), status: :ok
+      render json: { data: player.as_json(PLAYER_TO_JSON), url_completa: url_for(player.image.file) }, status: :ok
     else
       render json: { message: player.errors.details }, status: :unprocessable_entity
     end

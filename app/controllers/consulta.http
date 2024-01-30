@@ -1,15 +1,14 @@
-PUT /players/2769e215-d4cd-4532-84e0-fac4ad34ac6e/update_image HTTP/1.1
+PUT /players/16e56b8c-24cf-4db3-9b4d-f789be3fa715/update_image HTTP/1.1
 Host: localhost:3000
-Authorization: Bearer e04b6f16-11e8-4c09-ad9e-24466b7ec971
-Content-Length: 187
+Authorization: Bearer baf9dd34-7067-4b65-a0a7-c30815e80bad
+Content-Length: 184
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="image
-"; filename="Perfil_LS.jpg"
+Content-Disposition: form-data; name="image"; filename="pehSA2.jpg"
 Content-Type: image/jpeg
 
-"CardGameRuby/public/images/cards/blue/0.png"
+/home/lucasm/Pictures/Gorillaz/441368.jpg
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 
@@ -17,6 +16,8 @@ Content-Type: image/jpeg
 
 
 
-"CardGameRuby/public/images/cards/blue/0.png"
-"CardGameRuby/public/images/null_profile.png"
+/home/lucasm/Pictures/Gorillaz/441368.jpg
+
+CardGameRuby/public/images/cards/blue/0.png
+CardGameRuby/public/images/null_profile.png
 
