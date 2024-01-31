@@ -63,21 +63,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_25_234540) do
     t.index ["player_id"], name: "index_decks_on_player_id"
   end
 
-  create_table "images", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "player_id"
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["player_id"], name: "index_images_on_player_id"
-  end
-
   create_table "players", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "password"
     t.string "nickname"
     t.string "email"
     t.string "token"
-    t.uuid "image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "deck_id"
@@ -91,7 +82,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_25_234540) do
   add_foreign_key "boards", "players", column: "player2_id"
   add_foreign_key "decks", "boards"
   add_foreign_key "decks", "players"
-  add_foreign_key "images", "players"
   add_foreign_key "players", "decks"
-  add_foreign_key "players", "images"
 end

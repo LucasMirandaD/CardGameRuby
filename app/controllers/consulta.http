@@ -1,14 +1,14 @@
-PUT /players/16e56b8c-24cf-4db3-9b4d-f789be3fa715/update_image HTTP/1.1
+PUT /players/4c4ed93d-9ea5-4f2e-a47a-5f6cce3ed836/update_image HTTP/1.1
 Host: localhost:3000
-Authorization: Bearer baf9dd34-7067-4b65-a0a7-c30815e80bad
-Content-Length: 184
+Authorization: Bearer 4fb3c343-5a7b-48e5-9b94-1b9600356908
+Content-Length: 188
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="image"; filename="pehSA2.jpg"
+Content-Disposition: form-data; name="image"; filename="Portada_TB.jpg"
 Content-Type: image/jpeg
 
-/home/lucasm/Pictures/Gorillaz/441368.jpg
+/home/lucasm/Pictures/Perfil_LS.jpg
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 
@@ -17,6 +17,8 @@ Content-Type: image/jpeg
 
 
 /home/lucasm/Pictures/Gorillaz/441368.jpg
+
+/home/lucasm/Pictures/Perfil_LS.jpg
 
 CardGameRuby/public/images/cards/blue/0.png
 CardGameRuby/public/images/null_profile.png
