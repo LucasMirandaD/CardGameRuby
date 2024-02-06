@@ -4,9 +4,6 @@ class PlayersController < ApplicationController
 
   PLAYER_TO_JSON = { only: %i[id token] }.freeze
 
-  PLAYER_LOGIN_TO_JSON = { only: %i[id],
-                           include: { image: { methods: :url } } }.freeze
-
   def index
     players = Player.all
     render json: { players: players }, status: :ok
@@ -14,7 +11,7 @@ class PlayersController < ApplicationController
 
   def show
     player = Player.find(params[:id])
-    render json: { player: player }, status: :ok
+    render json: { player: player, image_url: url_for(player.image) }, status: :ok
   end
 
   def login
@@ -61,6 +58,8 @@ class PlayersController < ApplicationController
 
   def destroy
     player = Player.find(params[:id])
+    player.image.purge if player.image.attached?
+
     if player.destroy
       head :no_content, status: :ok
     else
