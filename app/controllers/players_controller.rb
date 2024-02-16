@@ -11,7 +11,7 @@ class PlayersController < ApplicationController
 
   def show
     player = Player.find(params[:id])
-    render json: { player: player, image_url: url_for(player.image) }, status: :ok
+    render json: { player: player, image_url: url_for(player.image), deck: player.deck.content }, status: :ok
   end
 
   def login
@@ -82,6 +82,18 @@ class PlayersController < ApplicationController
     else
       render json: { message: player.errors.details }, status: :unprocessable_entity
     end
+  end
+
+  def cards_count
+    # Esto tendria que ser un metodo de instancia en el modelo
+    player = Player.find(params[:player_id])
+    render json: { count: player.deck.content.count }
+  end
+
+  def cards
+    # Esto tendria que ser un metodo de instancia en el modelo
+    player = Player.find(params[:player_id])
+    render json: { cards: player.deck.content }
   end
 
   private

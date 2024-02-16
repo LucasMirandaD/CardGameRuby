@@ -47,6 +47,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_25_234540) do
     t.uuid "player2_id"
     t.string "board_name"
     t.integer "winner"
+    t.string "last_card"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "deck_id"

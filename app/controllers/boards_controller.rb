@@ -2,7 +2,7 @@ class BoardsController < ApplicationController
   include SessionHelper
   include CardEnum
   before_action :check_token # puedo recuperar el jugador
-  before_action :find_board, :check_winner, only: %i[join_board take_card deal_cards game_over]
+  before_action :find_board, :check_winner, only: %i[join_board take_card deal_cards game_over throw_card last_card]
 
   def index
     board = Board.all
@@ -73,7 +73,7 @@ class BoardsController < ApplicationController
     player.deck.content << @board.deck.content.shift # saca el primer elemento
 
     if @board.deck.save && player.deck.save
-      render json: { message: player.deck.content.last }, status: :ok
+      render json: { card: player.deck.content.last }, status: :ok
       # render json: { player_deck: player.deck, board_deck: board.deck }, status: :ok
     else
       render status: :unprocessable_entity
@@ -87,8 +87,9 @@ class BoardsController < ApplicationController
     # delete_if funciona igual que reject! pero no devuelve true o false
 
     if thrown_card && player.deck.save
+      @board.last_card = card
+      @board.save
       render json: { message: card }, status: :ok
-      # render json: { message: "La carta '#{card}' ha sido lanzada correctamente.", cartas: player.deck.content }, status: :ok
     else
       render json: { message: "El jugador no posee la carta '#{card}'." }, status: :unprocessable_entity
     end
@@ -105,7 +106,8 @@ class BoardsController < ApplicationController
 
     if player1.deck.save && player2.deck.save && @board.deck.save
       # render json: { player1_deck: player1.deck, player2_deck: player2.deck, board_deck: board.deck }, status: :ok
-      render status: :ok, json: { message: [player1.deck.content, player2.deck.content] }
+      # render status: :ok, json: { message: [player1.deck.content, player2.deck.content] }
+      render status: :ok
     else
       render status: :unprocessable_entity
     end
@@ -120,6 +122,10 @@ class BoardsController < ApplicationController
     end
   end
 
+  def last_card
+    render json: { url: @board.last_card }
+  end
+
   private
 
   def find_board
@@ -127,9 +133,7 @@ class BoardsController < ApplicationController
   end
 
   def check_winner
-    return unless @board.winner.nil?
-
-    render json: { message: 'Este juego ya terminó' }
+    render json: { message: 'Este juego ya terminó' } if @board.winner.present?
   end
 
   def board_params
