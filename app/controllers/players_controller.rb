@@ -11,7 +11,10 @@ class PlayersController < ApplicationController
 
   def show
     player = Player.find(params[:id])
-    render json: { player: player, image_url: url_for(player.image), deck: player.deck.content }, status: :ok
+    deck = player.deck.present? ? player.deck.content : ''
+    image_url = player.image.present? ? url_for(player.image) : ''
+
+    render json: { player: player, image_url: image_url, deck: deck }, status: :ok
   end
 
   def login
@@ -37,7 +40,7 @@ class PlayersController < ApplicationController
                         filename: 'null_profile.png',
                         content_type: 'image/png')
 
-    if player.save
+    if player.save && player.image.save
       token = player.token if player.token.present?
       response.headers['Authorization'] = "Bearer #{token}"
       render json: { data: player.to_json(PLAYER_TO_JSON), image_url: url_for(player.image) }, status: :ok

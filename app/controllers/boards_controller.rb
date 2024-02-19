@@ -2,7 +2,13 @@ class BoardsController < ApplicationController
   include SessionHelper
   include CardEnum
   before_action :check_token # puedo recuperar el jugador
-  before_action :find_board, :check_winner, only: %i[join_board take_card deal_cards game_over throw_card last_card]
+  before_action :find_board, :check_winner, only: %i[join_board
+                                                     take_card
+                                                     deal_cards
+                                                     game_over
+                                                     throw_card
+                                                     last_card
+                                                     increase_score]
 
   def index
     board = Board.all
@@ -124,6 +130,29 @@ class BoardsController < ApplicationController
 
   def last_card
     render json: { url: @board.last_card }
+  end
+
+  def score
+    board = Board.find(params[:board_id])
+    player1 = Player.find(board.player1_id)
+    player2 = Player.find(board.player2_id)
+
+    scores = [{ "id": player1.id, "nickname": player1.nickname, "score": board.player1_score },
+              { "id": player2.id, "nickname": player2.nickname, "score": board.player2_score }]
+    render json: { scores: scores }, status: :ok
+  end
+
+  def increase_score
+    if params[:board][:player_id] == @board.player1_id
+      @board.increment!(:player1_score)
+    elsif params[:board][:player_id] == @board.player2_id
+      @board.increment!(:player2_score)
+    else
+      render json: { error: 'ID de jugador no válido' }, status: :unprocessable_entity
+      return
+    end
+
+    render json: { message: 'Puntuación incrementada correctamente' }, status: :ok
   end
 
   private

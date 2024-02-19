@@ -10,6 +10,7 @@ Rails.application.routes.draw do
    end
 
    resources :boards, only: %i[index show create update destroy] do
+     get :score
    end
 
    resource :board, only: %i[] do
@@ -18,6 +19,7 @@ Rails.application.routes.draw do
      post :throw_card
      post :join_board
      post :last_card
+     post :increase_score
      get 'my_games/:id', to: 'boards#my_games'
    end
  end
