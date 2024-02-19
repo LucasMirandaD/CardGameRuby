@@ -46,7 +46,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_25_234540) do
     t.uuid "player1_id", null: false
     t.uuid "player2_id"
     t.string "board_name"
-    t.integer "winner"
+    t.string "winner"
     t.string "last_card"
     t.integer "player1_score", default: 0
     t.integer "player2_score", default: 0

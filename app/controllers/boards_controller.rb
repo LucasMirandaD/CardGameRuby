@@ -8,8 +8,7 @@ class BoardsController < ApplicationController
                                                      game_over
                                                      throw_card
                                                      last_card
-                                                     increase_score]
-
+                                                     increase_score] # REVISAR TODOS
   def index
     board = Board.all
     render json: { boards: board }, status: :ok
@@ -76,6 +75,8 @@ class BoardsController < ApplicationController
 
   def take_card
     player = Player.find(params[:board][:player_id])
+
+    shuffle(@board) if @board.deck.content.empty?
     player.deck.content << @board.deck.content.shift # saca el primer elemento
 
     if @board.deck.save && player.deck.save
@@ -155,7 +156,32 @@ class BoardsController < ApplicationController
     render json: { message: 'Puntuación incrementada correctamente' }, status: :ok
   end
 
+  def shuffle_cards
+    board = Board.find(params[:board_id])
+    shuffle(board)
+    render json: { deck: board.deck.content }, status: :ok
+  end
+
   private
+
+  def shuffle(board)
+    player1 = Player.find(board.player1_id)
+    player2 = Player.find(board.player2_id)
+
+    if board.deck.content == []
+      board.deck.content = CardEnum::CARD_ENUM_VALUES.dup.shuffle
+    else
+      card_enum = CardEnum::CARD_ENUM_VALUES.dup
+      cards_in_play = board.deck.content + player1.deck.content + player2.deck.content
+
+      # Eliminar las cartas en juego de la copia del array
+      cards_in_play.each do |card|
+        card_enum.delete(card)
+      end
+      # Asignar la copia del array barajado a board.deck.content
+      board.deck.content = card_enum.shuffle
+    end
+  end
 
   def find_board
     @board = Board.find(params[:board][:id])

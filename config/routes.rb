@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
    resources :boards, only: %i[index show create update destroy] do
      get :score
+     get :shuffle_cards
    end
 
    resource :board, only: %i[] do
