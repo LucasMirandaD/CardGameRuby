@@ -157,8 +157,7 @@ class BoardsController < ApplicationController
   end
 
   def shuffle_cards
-    board = Board.find(params[:board_id])
-    shuffle(board)
+    shuffle(board: Board.find(params[:board_id]))
     render json: { deck: board.deck.content }, status: :ok
   end
 
