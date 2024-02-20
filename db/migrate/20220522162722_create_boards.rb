@@ -6,6 +6,7 @@ class CreateBoards < ActiveRecord::Migration[7.0]
       t.string :board_name
       t.string :winner
       t.string :last_card
+      t.boolean :was_dealt, default: false
       t.integer :player1_score, default: 0
       t.integer :player2_score, default: 0
 

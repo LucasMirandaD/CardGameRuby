@@ -105,13 +105,14 @@ class BoardsController < ApplicationController
   def deal_cards
     cards_per_player = 7 # podria ser ingresado por los usuarios
 
-    player1 = Player.find(@board.player1_id)
-    player2 = Player.find(@board.player2_id)
+    find_players(@board)
 
-    player1.deck.content += @board.deck.content.shift(cards_per_player) # += por que son 2 arrays y sino no funciona
-    player2.deck.content += @board.deck.content.shift(cards_per_player)
+    @player1.deck.content += @board.deck.content.shift(cards_per_player) # += por que son 2 arrays y sino no funciona
+    @player2.deck.content += @board.deck.content.shift(cards_per_player)
 
-    if player1.deck.save && player2.deck.save && @board.deck.save
+    @board.was_dealt = true
+
+    if player1.deck.save && player2.deck.save && @board.save
       # render json: { player1_deck: player1.deck, player2_deck: player2.deck, board_deck: board.deck }, status: :ok
       # render status: :ok, json: { message: [player1.deck.content, player2.deck.content] }
       render status: :ok
@@ -135,11 +136,10 @@ class BoardsController < ApplicationController
 
   def score
     board = Board.find(params[:board_id])
-    player1 = Player.find(board.player1_id)
-    player2 = Player.find(board.player2_id)
+    find_players(board)
 
-    scores = [{ "id": player1.id, "nickname": player1.nickname, "score": board.player1_score },
-              { "id": player2.id, "nickname": player2.nickname, "score": board.player2_score }]
+    scores = [{ "id": @player1.id, "nickname": @player1.nickname, "score": board.player1_score },
+              { "id": @player2.id, "nickname": @player2.nickname, "score": board.player2_score }]
     render json: { scores: scores }, status: :ok
   end
 
@@ -161,24 +161,44 @@ class BoardsController < ApplicationController
     render json: { deck: board.deck.content }, status: :ok
   end
 
+  def reset_game
+    board = Board.find(params[:board_id])
+
+    find_players(board)
+
+    board.deck.content = CardEnum::CARD_ENUM_VALUES.dup.shuffle
+
+    [@player1, @player2].each do |player|
+      player.deck.destroy
+      player.deck = Deck.create
+    end
+
+    board.was_dealt = false
+
+    return unless player1.save && player2.save && board.save
+
+    render json: {}, status: :ok
+  end
+
   private
 
   def shuffle(board)
-    player1 = Player.find(board.player1_id)
-    player2 = Player.find(board.player2_id)
+    find_players(board)
 
     if board.deck.content == []
       board.deck.content = CardEnum::CARD_ENUM_VALUES.dup.shuffle
     else
       card_enum = CardEnum::CARD_ENUM_VALUES.dup
-      cards_in_play = board.deck.content + player1.deck.content + player2.deck.content
+      cards_players = @player1.deck.content + @player2.deck.content
+      cards_deck = board.deck.content
+      cards_in_play = cards_deck + cards_players
 
       # Eliminar las cartas en juego de la copia del array
       cards_in_play.each do |card|
         card_enum.delete(card)
       end
       # Asignar la copia del array barajado a board.deck.content
-      board.deck.content = card_enum.shuffle
+      board.deck.content = card_enum.shuffle + cards_deck.shuffle
     end
   end
 
@@ -192,5 +212,10 @@ class BoardsController < ApplicationController
 
   def board_params
     params.require(:board).permit(:winner, :player1, :player2, :board_name)
+  end
+
+  def find_players(board)
+    @player1 = Player.find(board.player1_id)
+    @player2 = Player.find(board.player2_id)
   end
 end
