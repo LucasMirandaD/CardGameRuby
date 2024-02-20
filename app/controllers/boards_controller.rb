@@ -76,7 +76,11 @@ class BoardsController < ApplicationController
   def take_card
     player = Player.find(params[:board][:player_id])
 
-    shuffle(@board) if @board.deck.content.empty?
+    if @board.deck.content.empty?
+      shuffle(@board)
+      render json: { message: 'No hay mas cartas' }, status: 204
+    end
+
     player.deck.content << @board.deck.content.shift # saca el primer elemento
 
     if @board.deck.save && player.deck.save
@@ -90,12 +94,13 @@ class BoardsController < ApplicationController
   def throw_card
     player = Player.find(params[:board][:player_id])
     card = params[:board][:card_url]
-    thrown_card = player.deck.content.reject! { |element| element == card }
+    # thrown_card = player.deck.content.reject! { |element| element == card }
     # delete_if funciona igual que reject! pero no devuelve true o false
+    thrown_card_index = player.deck.content.index(card)
+    player.deck.content.delete_at(thrown_card_index) if thrown_card_index
 
-    if thrown_card && player.deck.save
-      @board.last_card = card
-      @board.save
+    if player.deck.save
+      @board.update(last_card: card)
       render json: { message: card }, status: :ok
     else
       render json: { message: "El jugador no posee la carta '#{card}'." }, status: :unprocessable_entity
@@ -112,7 +117,7 @@ class BoardsController < ApplicationController
 
     @board.was_dealt = true
 
-    if player1.deck.save && player2.deck.save && @board.save
+    if @player1.deck.save && @player2.deck.save && @board.save
       # render json: { player1_deck: player1.deck, player2_deck: player2.deck, board_deck: board.deck }, status: :ok
       # render status: :ok, json: { message: [player1.deck.content, player2.deck.content] }
       render status: :ok
