@@ -43,7 +43,7 @@ class PlayersController < ApplicationController
     if player.save && player.image.save
       token = player.token if player.token.present?
       response.headers['Authorization'] = "Bearer #{token}"
-      render json: { data: player.to_json(PLAYER_TO_JSON), image_url: url_for(player.image) }, status: :ok
+      render json: { player: player.to_json(PLAYER_TO_JSON), image_url: url_for(player.image) }, status: :ok
     else
       render json: { message: player.errors.details }, status: :unprocessable_entity
     end
@@ -52,11 +52,23 @@ class PlayersController < ApplicationController
   def update
     player = Player.find(params[:id])
 
-    if player.update(player_params)
-      render json: { player: player }, status: :ok
-    else
-      render json: { message: player.errors.details }, status: :unprocessable_entity
+    current_password = params[:player][:current_password]
+    new_password = params[:player][:new_password]
+    name = params[:player][:name]
+
+    if current_password.present? && new_password.present?
+      if current_password == player.password
+        player.update(password: new_password)
+        render json: { player: player }, status: :ok
+      else
+        render json: { messages: ['Ingresa tu contraseña actual'] }, status: :unprocessable_entity
+      end
     end
+
+    return unless name.present?
+
+    player.update(name: name)
+    render json: { player: player }, status: :ok
   end
 
   def destroy
@@ -102,6 +114,6 @@ class PlayersController < ApplicationController
   private
 
   def player_params
-    params.require(:player).permit(:name, :password, :nickname, :email, :image)
+    params.require(:player).permit(:name, :current_password, :new_password)
   end
 end
