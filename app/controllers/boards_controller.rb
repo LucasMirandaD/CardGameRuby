@@ -65,11 +65,15 @@ class BoardsController < ApplicationController
     player2.deck = Deck.create
     player2.deck.board_id = @board.id
 
-    if @board.player2.present?
-      render json: { message: 'La partida está completa' }, status: :unprocessable_entity
+    if player2.id != @board.player1_id
+      if @board.player2.present?
+        render json: { message: 'La partida está completa' }, status: :unprocessable_entity
+      else
+        @board.update(player2: player2)
+        render json: { messages: 'Te has unido a la partida exitosamente' }, status: :ok
+      end
     else
-      @board.update(player2: player2)
-      render json: { message: 'Te has unido a la partida exitosamente' }, status: :ok
+      render json: { board: @board }, status: :unprocessable_entity
     end
   end
 

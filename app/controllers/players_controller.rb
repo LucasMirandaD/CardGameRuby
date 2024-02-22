@@ -33,7 +33,7 @@ class PlayersController < ApplicationController
   end
 
   def create
-    player = Player.new(player_params)
+    player = Player.new(player_params_create)
 
     # Imagen por defecto para el player
     player.image.attach(io: File.open(Rails.root.join('public', 'images', 'null_profile.png')),
@@ -45,7 +45,7 @@ class PlayersController < ApplicationController
       response.headers['Authorization'] = "Bearer #{token}"
       render json: { player: player.to_json(PLAYER_TO_JSON), image_url: url_for(player.image) }, status: :ok
     else
-      render json: { message: player.errors.details }, status: :unprocessable_entity
+      render json: { messages: [player.errors.details] }, status: :unprocessable_entity
     end
   end
 
@@ -115,5 +115,9 @@ class PlayersController < ApplicationController
 
   def player_params
     params.require(:player).permit(:name, :current_password, :new_password)
+  end
+
+  def player_params_create
+    params.require(:player).permit(:name, :password, :email, :name, :nickname)
   end
 end
