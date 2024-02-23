@@ -33,6 +33,7 @@ class BoardsController < ApplicationController
     board.deck = board_deck
     player1.deck = Deck.create
     player1.deck.board_id = board.id
+    board.last_card = board.deck.content.shift
 
     if board.save
       render json: { board: board }, status: :ok
