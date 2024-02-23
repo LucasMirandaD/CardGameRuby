@@ -19,6 +19,11 @@ class BoardsController < ApplicationController
     render json: { boards: boards }, status: :ok
   end
 
+  def wins
+    boards = Board.where('(player1_id = :id OR player2_id = :id) AND winner = :id', id: params[:id])
+    render json: { boards: boards }, status: :ok
+  end
+
   def show
     board = Board.find(params[:id])
     render json: { board: board, deck: board.deck }, status: :ok

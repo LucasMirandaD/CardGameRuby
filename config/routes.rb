@@ -23,5 +23,6 @@ Rails.application.routes.draw do
      post :last_card
      post :increase_score
      get 'my_games/:id', to: 'boards#my_games'
+     get 'my_games/:id/wins', to: 'boards#wins'
    end
  end
