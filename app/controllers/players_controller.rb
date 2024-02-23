@@ -18,11 +18,11 @@ class PlayersController < ApplicationController
   end
 
   def login
-    player = Player.find_by('(email = :email OR nickname = :nickname) AND password = :password',
-                            { email: params[:player][:email],
-                              nickname: params[:player][:nickname],
-                              password: params[:player][:password] })
-    if player.present?
+    player = Player.find_by(email: params[:player][:email])
+    password = params[:password]
+
+    byebug
+    if player.present? && player.authenticate(password)
       token = player.token if player.token.present?
       response.headers['Authorization'] = "Bearer #{token}"
       # render json: { id: player.id, token: token, image_url: player.image.image_url }, status: :ok

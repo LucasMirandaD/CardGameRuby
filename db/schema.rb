@@ -69,7 +69,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_25_234540) do
 
   create_table "players", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
-    t.string "password"
+    t.string "password_digest"
     t.string "nickname"
     t.string "email"
     t.string "token"
