@@ -130,9 +130,9 @@ class BoardsController < ApplicationController
     if @player1.deck.save && @player2.deck.save && @board.save
       # render json: { player1_deck: player1.deck, player2_deck: player2.deck, board_deck: board.deck }, status: :ok
       # render status: :ok, json: { message: [player1.deck.content, player2.deck.content] }
-      render status: :ok
+      render json: {}, status: :ok
     else
-      render status: :unprocessable_entity
+      render json: {}, status: :unprocessable_entity
     end
   end
 
@@ -141,7 +141,7 @@ class BoardsController < ApplicationController
     if @board.update(winner: winner)
       render json: { message: winner }, status: :ok
     else
-      render status: :unprocessable_entity
+      render json: {}, status: :unprocessable_entity
     end
   end
 
