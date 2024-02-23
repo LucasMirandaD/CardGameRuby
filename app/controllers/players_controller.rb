@@ -21,7 +21,6 @@ class PlayersController < ApplicationController
     player = Player.find_by(email: params[:player][:email])
     password = params[:password]
 
-    byebug
     if player.present? && player.authenticate(password)
       token = player.token if player.token.present?
       response.headers['Authorization'] = "Bearer #{token}"
