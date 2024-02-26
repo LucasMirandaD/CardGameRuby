@@ -91,7 +91,7 @@ class PlayersController < ApplicationController
 
     player.image.attach(image_params)
 
-    if player.save
+    if player.save && player.image.save
       render json: { data: player.as_json(PLAYER_TO_JSON), image_url: url_for(player.image) }, status: :ok
     else
       render json: { message: player.errors.details }, status: :unprocessable_entity
